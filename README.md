@@ -1,1 +1,1 @@
-Project can be found at https://github.com/ryan50500/language-learning-app-react-typescript.git
+Project can be found at https://ryan50500.github.io/language-learning-app-react-typescript
