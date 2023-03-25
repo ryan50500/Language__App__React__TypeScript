@@ -1,11 +1,17 @@
 import React from 'react';
+// import UserArray from './components/UserArray';
+import Users from './components/Users'
 
 function App() {
   return (
-    <h2>title</h2>
-    //   const myArray = [
-    //     'polish', 'french', 'spanish', 'russian'
-    // ]
+    <>
+      {/* to solve 'Users' showing in red, we wrapped whole Users component in jsx fragment */}
+      <Users />
+    </>
+  );
+}
+
+export default App;
 
 
     //     const [inputText, setInputText] = useState<string>("polish");
@@ -23,8 +29,3 @@ function App() {
     //                                 </label>
     //    <h2>{inputText === "" ? 5 : filteredItem}</h2>
     //  </>
-
-  );
-}
-
-export default App;
