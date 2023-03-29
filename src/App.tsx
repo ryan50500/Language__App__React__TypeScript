@@ -1,10 +1,13 @@
 import React from 'react';
-import Users from './components/Users';
+import Teachers from './components/Teachers';
+// import Card from './components/Card';
 
 function App() {
   return (
     <>
-      <Users />
+      {/* <Card> */}
+      <Teachers />
+      {/* </Card> */}
     </>
   );
 }
