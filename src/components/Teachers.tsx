@@ -17,17 +17,15 @@ const Teachers = () => {
             </div>
             {filteredItem.map((arrayItem, index) => {
                 return (
-                    <>
-                        <TeacherBorder key={arrayItem.id}>
-                            <div className={TeacherStyles.teacher}>
-                                <h2>{arrayItem.language}</h2>
-                                <h3>{arrayItem.name}</h3>
-                                <h4>Experience: {arrayItem.experience}</h4>
-                                <h5>Country of birth: {arrayItem.country}</h5>
-                                <h5 className={TeacherStyles.price}>Price: {arrayItem.price}</h5>
-                            </div>
-                        </TeacherBorder>
-                    </>
+                    <TeacherBorder key={arrayItem.id}>
+                        <div className={TeacherStyles.teacher}>
+                            <h2>{arrayItem.language}</h2>
+                            <h3>{arrayItem.name}</h3>
+                            <h4>Experience: {arrayItem.experience}</h4>
+                            <h5>Country of birth: {arrayItem.country}</h5>
+                            <h5 className={TeacherStyles.price}>Price: {arrayItem.price}</h5>
+                        </div>
+                    </TeacherBorder>
                 )
             })}
         </>
