@@ -1,11 +1,11 @@
 import React from 'react';
 import styles from './TeacherBorder.module.css';
 
-interface IUserBorder {
+interface ITeacherBorder {
     children?: React.ReactNode
 }
 
-const TeacherBorder: React.FC<IUserBorder> = (props) => {
+const TeacherBorder: React.FC<ITeacherBorder> = (props) => {
     return (
         <div className={styles.card}>
             {props.children}

@@ -1,6 +1,6 @@
 
 
-const UserArray = [
+const TeacherArray = [
     {
         language: 'Polish',
         name: 'Dawid Czaskowski',
@@ -43,4 +43,4 @@ const UserArray = [
     },
 ]
 
-export default UserArray
+export default TeacherArray
