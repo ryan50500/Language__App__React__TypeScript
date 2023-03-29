@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Language__App__React__TypeScript/static/css/main.45bebcd3.css",
+    "main.js": "/Language__App__React__TypeScript/static/js/main.15026bc9.js",
+    "index.html": "/Language__App__React__TypeScript/index.html",
+    "main.45bebcd3.css.map": "/Language__App__React__TypeScript/static/css/main.45bebcd3.css.map",
+    "main.15026bc9.js.map": "/Language__App__React__TypeScript/static/js/main.15026bc9.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.45bebcd3.css",
+    "static/js/main.15026bc9.js"
+  ]
+}
