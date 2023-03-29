@@ -18,7 +18,7 @@ const Teachers = () => {
             {filteredItem.map((arrayItem, index) => {
                 return (
                     <>
-                        <TeacherBorder key={index}>
+                        <TeacherBorder key={arrayItem.id}>
                             <div className={TeacherStyles.teacher}>
                                 <h2>{arrayItem.language}</h2>
                                 <h3>{arrayItem.name}</h3>
@@ -35,6 +35,3 @@ const Teachers = () => {
 }
 
 export default Teachers
-
-
-

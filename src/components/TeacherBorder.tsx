@@ -15,4 +15,3 @@ const TeacherBorder: React.FC<IUserBorder> = (props) => {
 
 export default TeacherBorder
 
-
