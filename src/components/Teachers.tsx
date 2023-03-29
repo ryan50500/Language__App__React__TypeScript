@@ -1,23 +1,18 @@
 import React from 'react';
 import TeacherArray from '../TeacherArray';
 import TeacherBorder from './TeacherBorder';
+import TeacherSearch from './TeacherSearch';
 import { useState } from 'react';
 import TeacherStyles from './TeacherStyles.module.css';
 
+
 const Teachers = () => {
     const [inputText, setInputText] = useState<string>("polish");
-
     const filteredTeachers = TeacherArray.filter(arrayMatched => arrayMatched.language.toLowerCase().indexOf(inputText) !== -1)
-
+    console.log(filteredTeachers)
     return (
         <>
-            <div style={{ textAlign: "center" }}>
-                <p style={{ fontSize: "1.2rem" }}>Which language do you want to learn?</p>
-                <input type="text" name="name" value={inputText} onChange={(e) => setInputText(e.target.value)} />
-                {filteredTeachers.length === 0 ?
-                    <div style={{ margin: "1.2rem" }}>Sorry, we currently don't offer that language...</div>
-                    : ""}
-            </div>
+            <TeacherSearch inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
             {filteredTeachers.map((arrayItem) => {
                 return (
                     <TeacherBorder key={arrayItem.id}>
