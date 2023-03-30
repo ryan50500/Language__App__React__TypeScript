@@ -5,7 +5,7 @@ import TeacherArray from '../TeacherArray';
 
 interface ITeacherSearch {
     inputText: string,
-    setInputText: (inputText: string) => void;
+    setInputText: React.Dispatch<React.SetStateAction<string>>
     filteredTeachers: any[]
 }
 
