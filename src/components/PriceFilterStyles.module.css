@@ -36,3 +36,30 @@
   border-radius: 50%;
   box-shadow: 0 0 0 3px rgb(59, 179, 189);
 }
+
+.alignPrice {
+  display: flex;
+  align-items: center;
+}
+
+.resetPrice {
+  position: relative;
+  margin-left: 10px;
+  border-radius: 50%;
+  background-color: #dadfe1;
+  color: gray;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-family: sans-serif;
+}
+.resetPrice:hover {
+  cursor: pointer;
+}
+.resetPriceCross{
+  top: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  fill: #8a959e;
+}
