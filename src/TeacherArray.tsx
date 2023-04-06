@@ -31,7 +31,7 @@ const TeacherArray = [
         experience: '10 years',
         country: 'Spain',
         price: 45,
-        id: 4
+        id: 3
     },
     {
         language: 'Russian',
@@ -39,7 +39,7 @@ const TeacherArray = [
         experience: '3 years',
         country: 'Russia',
         price: 20,
-        id: 3
+        id: 4
     },
     {
         language: 'Russian',
@@ -47,7 +47,7 @@ const TeacherArray = [
         experience: '3 years',
         country: 'Ukraine',
         price: 10,
-        id: 4
+        id: 5
     },
 ]
 
