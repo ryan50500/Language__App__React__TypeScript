@@ -3,6 +3,7 @@ import TeacherArray from '../TeacherArray';
 import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
 import TeacherStyles from './TeacherStyles.module.css';
+import PriceFilterStyles from './PriceFilterStyles.module.css';
 
 interface Props {
     initialInputText: string | number;
@@ -10,7 +11,8 @@ interface Props {
 
 const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [inputText, setInputText] = useState<string | number>(initialInputText);
-    const [inputPrice, setInputPrice] = useState<number>(50);
+    const [inputPrice, setInputPrice] = useState<number>(0);
+    const [maxPrice, setMaxPrice] = useState<number>(50);
 
     // filter the results by language searched for
     let filteredTeachers = TeacherArray.filter(
@@ -20,7 +22,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
     // filter the results by price by assinging 'filteredTeachers' to a new array
     filteredTeachers = filteredTeachers.filter(
-        (arrayMatched) => arrayMatched.price <= inputPrice
+        (arrayMatched) => arrayMatched.price >= inputPrice && arrayMatched.price <= maxPrice
     );
 
     // this function is called when user selects a price range
@@ -30,9 +32,22 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
     return (
         <>
-            <span>Filter by price: {inputPrice}</span>
-            <input type="range" min="0" max="50" step="1" value={inputPrice} onChange={handlePriceChange} />
-            {/* filter the results by language in the <SearchLanguage/> component */}
+            <span>Filter by price: {inputPrice} - {maxPrice}</span>
+            <div>
+                <label htmlFor="priceRange">Price:</label>
+                <input
+                    type="range"
+                    id="priceRange"
+                    name="priceRange"
+                    min="0"
+                    max="50"
+                    step="5"
+                    value={inputPrice}
+                    onChange={handlePriceChange}
+                    className={PriceFilterStyles.priceSlider}
+                />
+            </div>
+            {/* filter the results by language */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
             {filteredTeachers.map((arrayItem) => {
                 return (
