@@ -26,6 +26,14 @@ const TeacherArray = [
         id: 2
     },
     {
+        language: 'Spanish',
+        name: 'Feliciano Lopez',
+        experience: '10 years',
+        country: 'Spain',
+        price: 45,
+        id: 4
+    },
+    {
         language: 'Russian',
         name: 'Daniil Medvedev',
         experience: '3 years',

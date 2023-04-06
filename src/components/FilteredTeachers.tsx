@@ -14,6 +14,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [inputPrice, setInputPrice] = useState<number>(0);
     const [maxPrice, setMaxPrice] = useState<number>(50);
 
+
     // filter the results by language searched for
     let filteredTeachers = TeacherArray.filter(
         (arrayMatched) =>
@@ -25,6 +26,14 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         (arrayMatched) => arrayMatched.price >= inputPrice && arrayMatched.price <= maxPrice
     );
 
+
+    // remove price filter
+    const removePriceFilter = () => {
+        setInputPrice(0);
+        setMaxPrice(50);
+    };
+
+
     // this function is called when user selects a price range
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setInputPrice(parseInt(event.target.value));
@@ -34,7 +43,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         <>
             <div className={PriceFilterStyles.alignPrice}>
                 <span>Filter by price: {inputPrice} - {maxPrice}</span>
-                <div className={PriceFilterStyles.resetPrice}>
+                <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
                     <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
                 </div>
             </div>
