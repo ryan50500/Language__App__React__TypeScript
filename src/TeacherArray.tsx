@@ -6,7 +6,7 @@ const TeacherArray = [
         name: 'Dawid Czaskowski',
         experience: '5 years',
         country: 'Poland',
-        price: '£17.00 per hour',
+        price: 17,
         id: 0,
     },
     {
@@ -14,7 +14,7 @@ const TeacherArray = [
         name: 'Gilles Simon',
         experience: '2 years',
         country: 'France',
-        price: '£15.00 per hour',
+        price: 15,
         id: 1
     },
     {
@@ -22,7 +22,7 @@ const TeacherArray = [
         name: 'David Ferrer',
         experience: '1 year',
         country: 'Argentina',
-        price: '£17.00 per hour',
+        price: 14,
         id: 2
     },
     {
@@ -30,7 +30,7 @@ const TeacherArray = [
         name: 'Daniil Medvedev',
         experience: '3 years',
         country: 'Russia',
-        price: '£14.00 per hour',
+        price: 20,
         id: 3
     },
     {
@@ -38,7 +38,7 @@ const TeacherArray = [
         name: 'Sergiy Stakhovsky',
         experience: '3 years',
         country: 'Ukraine',
-        price: '£12.00 per hour',
+        price: 10,
         id: 4
     },
 ]

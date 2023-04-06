@@ -3,14 +3,14 @@ import { useState } from 'react'
 import TeacherArray from '../TeacherArray';
 
 
-interface ITeacherSearch {
-    inputText: string,
-    setInputText: React.Dispatch<React.SetStateAction<string>>
+interface ISearchLanguage {
+    inputText: string | number,
+    setInputText: React.Dispatch<React.SetStateAction<string | number>>
     filteredTeachers: any[]
 }
 
 
-const TeacherSearch = ({ inputText, setInputText, filteredTeachers }: ITeacherSearch) => {
+const SearchLanguage = ({ inputText, setInputText, filteredTeachers }: ISearchLanguage) => {
     return (
         <>
             <div style={{ textAlign: "center" }}>
@@ -25,4 +25,4 @@ const TeacherSearch = ({ inputText, setInputText, filteredTeachers }: ITeacherSe
     )
 }
 
-export default TeacherSearch
+export default SearchLanguage
