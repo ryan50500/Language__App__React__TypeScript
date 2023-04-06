@@ -13,6 +13,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [inputText, setInputText] = useState<string | number>(initialInputText);
     const [maxPrice, setMaxPrice] = useState<number>(50);
     const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
+    const [teacherAvailability, setTeacherAvailability] = useState<string>("");
 
 
     // filter the results by language searched for
@@ -24,6 +25,11 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     // filter the results by price and birth country of teacher
     filteredTeachers = filteredTeachers.filter(
         (arrayMatched) => arrayMatched.price < maxPrice && arrayMatched.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1
+    );
+
+    // filter the results by teacher availabilty 
+    filteredTeachers = filteredTeachers.filter(
+        (arrayMatched) => arrayMatched.availability.toLowerCase().indexOf(teacherAvailability.toString()) !== -1
     );
 
 
@@ -48,6 +54,18 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     };
 
 
+    // filter teachers by Availability
+    const handleAvailability = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTeacherAvailability(event.target.value);
+        // setMaxPrice(parseInt(event.target.value));
+    };
+
+    // remove teacher by Availability
+    const removeAvailability = () => {
+        setTeacherAvailability("")
+    };
+
+
     // remove teacher birth country filter
     const removeBirthCountry = () => {
         setTeacherBirthCountry("")
@@ -64,11 +82,19 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             </div>
             {/* filter teachers by price */}
             <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={PriceFilterStyles.priceSlider} />
+
             {/* filter the results by language */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
+
             {/* filter teachers by birth country */}
             <span>Filter teacher by birth country</span><button onClick={removeBirthCountry}>Remove birth country</button>
             <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
+
+            {/* filter teachers by availability */}
+            <div className="poo">
+                <span>Filter teacher by availability</span><button onClick={removeAvailability}>Remove availability</button>
+                <input type="text" id="teacherAvailability" name="teacherAvailability" value={teacherAvailability} onChange={handleAvailability} />
+            </div>
             {filteredTeachers.map((arrayItem) => {
                 return (
                     <TeacherBorder key={arrayItem.id}>
@@ -77,6 +103,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                             <h3>{arrayItem.name}</h3>
                             <h4>Experience: {arrayItem.experience}</h4>
                             <h5>Country of birth: {arrayItem.country}</h5>
+                            <h5>Availability {arrayItem.availability}</h5>
                             <h5 className={TeacherStyles.price}>Price: {arrayItem.price}</h5>
                         </div>
                     </TeacherBorder>
