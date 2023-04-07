@@ -14,6 +14,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [maxPrice, setMaxPrice] = useState<number>(50);
     const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
     const [teacherAvailability, setTeacherAvailability] = useState<string>("");
+    const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
 
 
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
@@ -57,40 +58,58 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
     // remove Birth Country filter
     const removeBirthCountry = () => {
-        console.log('no filter?')
         setTeacherBirthCountry("")
     };
 
+
+    // Open price filter on click
+    const openPriceFilter = () => {
+        console.log('whfs')
+        setIsPriceRangeVisible(true);
+    };
 
     return (
         <>
             {/* filter the results by language */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
 
-            <div className={PriceFilterStyles.alignPrice}>
-                <span>Max price: {maxPrice}</span>
-                <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
-                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+            {/* filter teachers by price */}
+            <div className={PriceFilterStyles.filter__options}>
+                <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
+                    <div className={PriceFilterStyles.flex__align}>
+                        <span>PRICE PER LESSON</span>
+                        <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
+                            <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                        </div>
+                    </div>
+                    <span>{maxPrice}</span>
                 </div>
-                {/* filter teachers by price */}
-                <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={PriceFilterStyles.priceSlider} />
+
+                {/* filter teachers by birth country */}
+                <div className={PriceFilterStyles.flex__column}>
+                    <div className={PriceFilterStyles.flex__align}>
+                        <span>COUNTRY OF BIRTH</span>
+                        <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
+                            <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+
+                {/* filter teachers by availability */}
+                <div className={PriceFilterStyles.flex__column}>
+                    <div className={PriceFilterStyles.flex__align}>
+                        <span>I'M AVAILABLE</span>
+                        <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
+                            <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
-            {/* filter teachers by birth country */}
-            <span>COUNTRY OF BIRTH</span>
-            <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
-                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-            </div>
-            <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
-
-
-            {/* filter teachers by availability */}
-            <div className="availability-flex">
-                <span>I'M AVAILABLE</span>
-                <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
-                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                </div>
+            <div className={`${PriceFilterStyles.filter__options} ${PriceFilterStyles.hover}`}>
+                {isPriceRangeVisible && <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={PriceFilterStyles.priceSlider} />}
+                <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
                 <input type="text" id="teacherAvailability" name="teacherAvailability" value={teacherAvailability} onChange={handleAvailability} />
             </div>
 
