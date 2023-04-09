@@ -85,9 +85,10 @@
   display: flex;
   align-items: center;
 }
-.flex__align span {
+.flex__column .filter__type {
   font-size: 12px;
   color: #8a959e;
+  margin-bottom: 7px;
 }
 
 .visible {

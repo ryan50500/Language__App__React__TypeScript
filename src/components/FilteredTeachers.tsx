@@ -26,7 +26,9 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             arrayMatched.price < maxPrice && arrayMatched.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
             arrayMatched.availability.toLowerCase().indexOf(teacherAvailability.toString()) !== -1
     );
-
+    // if (filteredTeachers.length === 0) {
+    //     filteredTeachers = TeacherArray;
+    // }
 
 
     // this function is called when user selects a price range
@@ -49,12 +51,6 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
 
     // REMOVE FILTERS
-    // remove Availability filter
-    const removeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        setIsAvailabilityVisible(false);
-        setTeacherAvailability("");
-        e.stopPropagation();
-    };
     // remove Price filter
     const removePriceFilter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         setIsPriceRangeVisible(false);
@@ -67,7 +63,12 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         setTeacherBirthCountry("")
         e.stopPropagation();
     };
-
+    // remove Availability filter
+    const removeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        setIsAvailabilityVisible(false);
+        setTeacherAvailability("");
+        e.stopPropagation();
+    };
 
 
 
@@ -79,6 +80,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     };
     // Open price filter 
     const openBirthCountryFilter = () => {
+        console.log('why')
         setIsBirthCountryVisible(!isBirthCountryVisible);
     };
     // Open price filter 
@@ -94,32 +96,40 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             {/* filter teachers by price */}
             <div className={PriceFilterStyles.filter__options}>
                 <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
+                    <span className={PriceFilterStyles.filter__type}>MAX LESSON PRICE</span>
                     <div className={PriceFilterStyles.flex__align}>
-                        <span>MAX LESSON PRICE</span>
-                        <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
-                            <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                        </div>
+                        <span>£ {maxPrice}</span>
+                        {maxPrice < 50 ? (
+                            <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
+                                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                            </div>) : null
+                        }
                     </div>
-                    <span>{maxPrice}</span>
                 </div>
 
                 {/* filter teachers by birth country */}
-                <div className={PriceFilterStyles.flex__column}>
-                    <div className={PriceFilterStyles.flex__align} onClick={openBirthCountryFilter}>
-                        <span>COUNTRY OF BIRTH</span>
-                        <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
-                            <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                        </div>
+                <div className={PriceFilterStyles.flex__column} onClick={openBirthCountryFilter}>
+                    <span className={PriceFilterStyles.filter__type}>COUNTRY OF BIRTH</span>
+                    <div className={PriceFilterStyles.flex__align}>
+                        <span>{teacherBirthCountry.length === 0 ? 'Any Country' : teacherBirthCountry}</span>
+                        {teacherBirthCountry.length > 0 ? (
+                            <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
+                                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                            </div>) : null
+                        }
                     </div>
                 </div>
 
                 {/* filter teachers by availability */}
-                <div className={PriceFilterStyles.flex__column}>
-                    <div className={PriceFilterStyles.flex__align} onClick={openAvailabilityFilter}>
-                        <span>I'M AVAILABLE</span>
-                        <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
-                            <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                        </div>
+                <div className={PriceFilterStyles.flex__column} onClick={openAvailabilityFilter}>
+                    <span className={PriceFilterStyles.filter__type}>I'M AVAILABLE</span>
+                    <div className={PriceFilterStyles.flex__align}>
+                        <span>{teacherAvailability.length === 0 ? 'Any time' : teacherAvailability}</span>
+                        {teacherAvailability.length > 0 ? (
+                            <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
+                                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                            </div>) : null
+                        }
                     </div>
                 </div>
             </div>
