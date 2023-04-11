@@ -18,6 +18,8 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
 
+    const [grayedOut, setGrayedOut] = useState(false);
+
 
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
     let filteredTeachers = TeacherArray.filter(
@@ -26,9 +28,6 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             arrayMatched.price < maxPrice && arrayMatched.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
             arrayMatched.availability.toLowerCase().indexOf(teacherAvailability.toString()) !== -1
     );
-    // if (filteredTeachers.length === 0) {
-    //     filteredTeachers = TeacherArray;
-    // }
 
 
     // this function is called when user selects a price range
@@ -71,21 +70,27 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     };
 
 
-
-
     // OPEN FILTERS WHEN CLICKED
     // Open price filter 
     const openPriceFilter = () => {
+        setGrayedOut(true);
         setIsPriceRangeVisible(!isPriceRangeVisible);
+        setIsBirthCountryVisible(false);
+        setIsAvailabilityVisible(false);
     };
-    // Open price filter 
+    // Open birth country filter 
     const openBirthCountryFilter = () => {
-        console.log('why')
+        setGrayedOut(true);
         setIsBirthCountryVisible(!isBirthCountryVisible);
+        setIsAvailabilityVisible(false);
+        setIsPriceRangeVisible(false);
     };
-    // Open price filter 
+    // Open availability filter 
     const openAvailabilityFilter = () => {
+        setGrayedOut(true);
         setIsAvailabilityVisible(!isAvailabilityVisible);
+        setIsBirthCountryVisible(false);
+        setIsPriceRangeVisible(false);
     };
 
     return (
@@ -94,55 +99,61 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
 
             {/* filter teachers by price */}
-            <div className={PriceFilterStyles.filter__options}>
-                <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
-                    <span className={PriceFilterStyles.filter__type}>MAX LESSON PRICE</span>
-                    <div className={PriceFilterStyles.flex__align}>
-                        <span>£ {maxPrice}</span>
-                        {maxPrice < 50 ? (
-                            <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
-                                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                            </div>) : null
-                        }
+            <div className={`${PriceFilterStyles.filter__options} ${grayedOut ? PriceFilterStyles.filter__options__grayed : ''}`}>
+                <div className={`${PriceFilterStyles.filter__padding} ${isPriceRangeVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
+                    <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
+                        <span className={PriceFilterStyles.filter__type}>MAX LESSON PRICE</span>
+                        <div className={PriceFilterStyles.flex__align}>
+                            <span>£ {maxPrice}</span>
+                            {maxPrice < 50 ? (
+                                <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
+                                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                </div>) : null
+                            }
+                        </div>
                     </div>
                 </div>
 
                 {/* filter teachers by birth country */}
-                <div className={PriceFilterStyles.flex__column} onClick={openBirthCountryFilter}>
-                    <span className={PriceFilterStyles.filter__type}>COUNTRY OF BIRTH</span>
-                    <div className={PriceFilterStyles.flex__align}>
-                        <span>{teacherBirthCountry.length === 0 ? 'Any Country' : teacherBirthCountry}</span>
-                        {teacherBirthCountry.length > 0 ? (
-                            <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
-                                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                            </div>) : null
-                        }
+                <div className={`${PriceFilterStyles.filter__padding} ${isBirthCountryVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
+                    <div className={PriceFilterStyles.flex__column} onClick={openBirthCountryFilter}>
+                        <span className={PriceFilterStyles.filter__type}>COUNTRY OF BIRTH</span>
+                        <div className={PriceFilterStyles.flex__align}>
+                            <span>{teacherBirthCountry.length === 0 ? 'Any Country' : teacherBirthCountry}</span>
+                            {teacherBirthCountry.length > 0 ? (
+                                <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
+                                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                </div>) : null
+                            }
+                        </div>
                     </div>
                 </div>
 
                 {/* filter teachers by availability */}
-                <div className={PriceFilterStyles.flex__column} onClick={openAvailabilityFilter}>
-                    <span className={PriceFilterStyles.filter__type}>I'M AVAILABLE</span>
-                    <div className={PriceFilterStyles.flex__align}>
-                        <span>{teacherAvailability.length === 0 ? 'Any time' : teacherAvailability}</span>
-                        {teacherAvailability.length > 0 ? (
-                            <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
-                                <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                            </div>) : null
-                        }
+                <div className={`${PriceFilterStyles.filter__padding} ${isAvailabilityVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
+                    <div className={PriceFilterStyles.flex__column} onClick={openAvailabilityFilter}>
+                        <span className={PriceFilterStyles.filter__type}>I'M AVAILABLE</span>
+                        <div className={PriceFilterStyles.flex__align}>
+                            <span>{teacherAvailability.length === 0 ? 'Any time' : teacherAvailability}</span>
+                            {teacherAvailability.length > 0 ? (
+                                <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
+                                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                </div>) : null
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
 
 
             <div className={`${PriceFilterStyles.filter__options} ${PriceFilterStyles.hover}`}>
-                <div className={`${PriceFilterStyles.white__background} ${isPriceRangeVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
+                <div className={`${PriceFilterStyles.filter__input} ${isPriceRangeVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
                     <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={`${PriceFilterStyles.priceSlider}`} />
                 </div>
-                <div className={`${PriceFilterStyles.white__background} ${isBirthCountryVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
+                <div className={`${PriceFilterStyles.filter__input} ${isBirthCountryVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
                     <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
                 </div>
-                <div className={`${PriceFilterStyles.white__background} ${isAvailabilityVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
+                <div className={`${PriceFilterStyles.filter__input} ${isAvailabilityVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
                     <input type="text" id="teacherAvailability" name="teacherAvailability" value={teacherAvailability} onChange={handleAvailability} />
                 </div>
             </div>
