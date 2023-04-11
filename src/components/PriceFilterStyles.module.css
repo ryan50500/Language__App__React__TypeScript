@@ -73,8 +73,7 @@
   border-radius: 20px;
 }
 .filter__options__grayed {
-  background-color: #ccc;
-  opacity: 0.5;
+  background-color: #F8F9F9;
 }
 .hover {
   margin: 0.5rem 4% 0 4%;

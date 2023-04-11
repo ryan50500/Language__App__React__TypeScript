@@ -13,8 +13,8 @@ interface ISearchLanguage {
 const SearchLanguage = ({ inputText, setInputText, filteredTeachers }: ISearchLanguage) => {
     return (
         <>
-            <div style={{ textAlign: "center" }}>
-                <p style={{ fontSize: "1.2rem" }}>Which language do you want to learn?</p>
+            <div style={{ textAlign: "center" }} >
+                <p style={{ fontSize: "1.3rem", margin: "1rem" }}>Which language do you want to learn?</p>
                 <input type="text" name="name" value={inputText} onChange={(e) => setInputText(e.target.value)} />
                 {filteredTeachers.length === 0 ?
                     <div style={{ margin: "1.2rem" }}>Sorry, we currently don't offer that language...</div>

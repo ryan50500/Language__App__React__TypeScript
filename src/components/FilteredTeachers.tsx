@@ -24,13 +24,18 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     // function is triggered when user clicks outside of the filters
     const filterRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        // React.MouseEvent<HTMLDivElement, MouseEvent> 
         function handleClickOutside(event: MouseEvent) {
+            event.stopPropagation();
             if (filterRef.current && !filterRef.current.contains(event.target as HTMLElement)) {
+                console.log('poo')
                 setGrayedOut(false);
                 setIsBirthCountryVisible(false);
                 setIsAvailabilityVisible(false);
                 setIsPriceRangeVisible(false);
+            }
+            else {
+                console.log('filters are the target!')
+
             }
         }
         document.addEventListener('mousedown', handleClickOutside);
@@ -39,6 +44,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
 
 
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
@@ -65,7 +71,6 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         setTeacherAvailability(event.target.value);
         // setMaxPrice(parseInt(event.target.value));
     };
-
 
 
 
@@ -115,68 +120,68 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
     return (
         <>
+
             {/* filter the results by language  */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
 
-            {/* filter teachers by price */}
-            <div className={`${PriceFilterStyles.filter__options} ${grayedOut ? PriceFilterStyles.filter__options__grayed : ''}`} ref={filterRef}>
-                <div className={`${PriceFilterStyles.filter__padding} ${isPriceRangeVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
-                    <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
-                        <span className={PriceFilterStyles.filter__type}>MAX LESSON PRICE</span>
-                        <div className={PriceFilterStyles.flex__align}>
-                            <span>£ {maxPrice}</span>
-                            {maxPrice < 50 ? (
-                                <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
-                                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                </div>) : null
-                            }
+
+            <section id="filter__section" ref={filterRef}>
+                <div className={`${PriceFilterStyles.filter__options} ${grayedOut ? PriceFilterStyles.filter__options__grayed : ''}`}>
+                    {/* filter teachers by price */}
+                    <div className={`${PriceFilterStyles.filter__padding} ${isPriceRangeVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
+                        <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
+                            <span className={PriceFilterStyles.filter__type}>MAX LESSON PRICE</span>
+                            <div className={PriceFilterStyles.flex__align}>
+                                <span>£ {maxPrice}</span>
+                                {maxPrice < 50 ? (
+                                    <div className={PriceFilterStyles.resetPrice} onClick={removePriceFilter}>
+                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                    </div>) : null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    {/* filter teachers by birth country */}
+                    <div className={`${PriceFilterStyles.filter__padding} ${isBirthCountryVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
+                        <div className={PriceFilterStyles.flex__column} onClick={openBirthCountryFilter}>
+                            <span className={PriceFilterStyles.filter__type}>COUNTRY OF BIRTH</span>
+                            <div className={PriceFilterStyles.flex__align}>
+                                <span>{teacherBirthCountry.length === 0 ? 'Any Country' : teacherBirthCountry}</span>
+                                {teacherBirthCountry.length > 0 ? (
+                                    <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
+                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                    </div>) : null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    {/* filter teachers by availability */}
+                    <div className={`${PriceFilterStyles.filter__padding} ${isAvailabilityVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
+                        <div className={PriceFilterStyles.flex__column} onClick={openAvailabilityFilter}>
+                            <span className={PriceFilterStyles.filter__type}>I'M AVAILABLE</span>
+                            <div className={PriceFilterStyles.flex__align}>
+                                <span>{teacherAvailability.length === 0 ? 'Any time' : teacherAvailability}</span>
+                                {teacherAvailability.length > 0 ? (
+                                    <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
+                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                    </div>) : null
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                {/* filter teachers by birth country */}
-                <div className={`${PriceFilterStyles.filter__padding} ${isBirthCountryVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
-                    <div className={PriceFilterStyles.flex__column} onClick={openBirthCountryFilter}>
-                        <span className={PriceFilterStyles.filter__type}>COUNTRY OF BIRTH</span>
-                        <div className={PriceFilterStyles.flex__align}>
-                            <span>{teacherBirthCountry.length === 0 ? 'Any Country' : teacherBirthCountry}</span>
-                            {teacherBirthCountry.length > 0 ? (
-                                <div className={PriceFilterStyles.resetPrice} onClick={removeBirthCountry}>
-                                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                </div>) : null
-                            }
-                        </div>
+                <div className={`${PriceFilterStyles.filter__options} ${PriceFilterStyles.hover}`}>
+                    <div className={`${PriceFilterStyles.filter__input} ${isPriceRangeVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
+                        <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={`${PriceFilterStyles.priceSlider}`} />
+                    </div>
+                    <div className={`${PriceFilterStyles.filter__input} ${isBirthCountryVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`}>
+                        <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
+                    </div>
+                    <div className={`${PriceFilterStyles.filter__input} ${isAvailabilityVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`}>
+                        <input type="text" id="teacherAvailability" name="teacherAvailability" value={teacherAvailability} onChange={handleAvailability} />
                     </div>
                 </div>
-
-                {/* filter teachers by availability */}
-                <div className={`${PriceFilterStyles.filter__padding} ${isAvailabilityVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
-                    <div className={PriceFilterStyles.flex__column} onClick={openAvailabilityFilter}>
-                        <span className={PriceFilterStyles.filter__type}>I'M AVAILABLE</span>
-                        <div className={PriceFilterStyles.flex__align}>
-                            <span>{teacherAvailability.length === 0 ? 'Any time' : teacherAvailability}</span>
-                            {teacherAvailability.length > 0 ? (
-                                <div className={PriceFilterStyles.resetPrice} onClick={removeAvailability}>
-                                    <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={PriceFilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                </div>) : null
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div className={`${PriceFilterStyles.filter__options} ${PriceFilterStyles.hover}`}>
-                <div className={`${PriceFilterStyles.filter__input} ${isPriceRangeVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
-                    <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={`${PriceFilterStyles.priceSlider}`} />
-                </div>
-                <div className={`${PriceFilterStyles.filter__input} ${isBirthCountryVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
-                    <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
-                </div>
-                <div className={`${PriceFilterStyles.filter__input} ${isAvailabilityVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`} >
-                    <input type="text" id="teacherAvailability" name="teacherAvailability" value={teacherAvailability} onChange={handleAvailability} />
-                </div>
-            </div>
+            </section>
 
 
             {filteredTeachers.map((arrayItem) => {
