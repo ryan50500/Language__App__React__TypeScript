@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TeacherArray from '../TeacherArray';
 import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
 import TeacherStyles from './TeacherStyles.module.css';
 import PriceFilterStyles from './PriceFilterStyles.module.css';
+
 
 interface Props {
     initialInputText: string | number;
@@ -17,8 +18,27 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
-
     const [grayedOut, setGrayedOut] = useState(false);
+
+
+    // function is triggered when user clicks outside of the filters
+    const filterRef = useRef<HTMLDivElement>(null);
+    useEffect(() => {
+        // React.MouseEvent<HTMLDivElement, MouseEvent> 
+        function handleClickOutside(event: MouseEvent) {
+            if (filterRef.current && !filterRef.current.contains(event.target as HTMLElement)) {
+                setGrayedOut(false);
+                setIsBirthCountryVisible(false);
+                setIsAvailabilityVisible(false);
+                setIsPriceRangeVisible(false);
+            }
+        }
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
 
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
@@ -99,7 +119,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
 
             {/* filter teachers by price */}
-            <div className={`${PriceFilterStyles.filter__options} ${grayedOut ? PriceFilterStyles.filter__options__grayed : ''}`}>
+            <div className={`${PriceFilterStyles.filter__options} ${grayedOut ? PriceFilterStyles.filter__options__grayed : ''}`} ref={filterRef}>
                 <div className={`${PriceFilterStyles.filter__padding} ${isPriceRangeVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
                     <div className={PriceFilterStyles.flex__column} onClick={openPriceFilter}>
                         <span className={PriceFilterStyles.filter__type}>MAX LESSON PRICE</span>
