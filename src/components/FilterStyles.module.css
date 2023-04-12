@@ -119,8 +119,9 @@
   border-right: 1px solid lightgray;
   border-radius: 20px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  background-color: #FCFCFC;
 }
+
 .filter__padding__white {
   background-color: white;
   border-radius: 20px;
@@ -142,13 +143,28 @@
   width: 135px;
 }
 .availability__popout {
-  width: auto;
-  position: absolute;
+  width: 350px;
+  padding: 1rem;
+}
+.availability__popout h3 {
+    margin-bottom: 15px;
+    font-size: 15px;
+    font-weight: 700;
 }
 .availability__flex {
   display: flex;
+  justify-content: space-between;
 }
 .availability__options {
   background-color: white;
+}
+.availability__time {
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+}
+.availability__time:hover {
+    cursor: pointer;
+    color: #3bb3bd;
 }
 
