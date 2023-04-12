@@ -13,7 +13,8 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     const [inputText, setInputText] = useState<string | number>(initialInputText);
     const [maxPrice, setMaxPrice] = useState<number>(50);
     const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
-    const [teacherAvailability, setTeacherAvailability] = useState<string>("");
+    const [timeAvailabile, setTimeAvailabile] = useState<string>("");
+    const [daysAvailabile, setDaysAvailabile] = useState<string>("");
     const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
@@ -45,7 +46,9 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         (arrayMatched) =>
             arrayMatched.language.toLowerCase().indexOf(inputText.toString()) !== -1 &&
             arrayMatched.price < maxPrice && arrayMatched.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
-            arrayMatched.availability.toLowerCase().indexOf(teacherAvailability.toString()) !== -1
+            arrayMatched.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
+            // arrayMatched.days.includes(daysAvailabile + " ")
+            arrayMatched.days.indexOf(daysAvailabile + " ") > -1
     );
 
 
@@ -61,15 +64,15 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     };
     // filter teachers by morning availability
     const morningAvailability = () => {
-        setTeacherAvailability('morning');
+        setTimeAvailabile('morning');
     };
     // filter teachers by afternoon availability
     const afternoonAvailability = () => {
-        setTeacherAvailability('afternoon');
+        setTimeAvailabile('afternoon');
     };
     // filter teachers by evening availability
     const eveningAvailability = () => {
-        setTeacherAvailability('evening');
+        setTimeAvailabile('evening');
     };
 
 
@@ -89,7 +92,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
     // remove Availability filter
     const removeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         setIsAvailabilityVisible(false);
-        setTeacherAvailability("");
+        setTimeAvailabile("");
         e.stopPropagation();
     };
 
@@ -159,8 +162,8 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                         <div className={FilterStyles.flex__column} onClick={openAvailabilityFilter}>
                             <span className={FilterStyles.filter__type}>I'M AVAILABLE</span>
                             <div className={FilterStyles.flex__align}>
-                                {teacherAvailability.length === 0 ? <span>Any time</span> : <span style={{ textTransform: 'capitalize' }}>{teacherAvailability}</span>}
-                                {teacherAvailability.length > 0 ? (
+                                {timeAvailabile.length === 0 ? <span>Any time</span> : <span style={{ textTransform: 'capitalize' }}>{timeAvailabile}</span>}
+                                {timeAvailabile.length > 0 ? (
                                     <div className={FilterStyles.resetPrice} onClick={removeAvailability}>
                                         <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
                                     </div>) : null
@@ -185,17 +188,17 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                         <div className={`${FilterStyles.availability__options} ${FilterStyles.availability__popout}`}>
                             <h3>Time of the day, in your time zone</h3>
                             <div className={FilterStyles.availability__flex}>
-                                <div style={{ color: teacherAvailability === 'morning' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={morningAvailability}>
+                                <div style={{ color: timeAvailabile === 'morning' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={morningAvailability}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-sunrise"><path d="M17 18a5 5 0 0 0-10 0"></path><line x1="12" y1="2" x2="12" y2="9"></line><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"></line><line x1="1" y1="18" x2="3" y2="18"></line><line x1="21" y1="18" x2="23" y2="18"></line><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"></line><line x1="23" y1="22" x2="1" y2="22"></line><polyline points="8 6 12 2 16 6"></polyline></svg>
                                     <span style={{ margin: '5px' }} >6-12</span>
                                     Morning
                                 </div>
-                                <div style={{ color: teacherAvailability === 'afternoon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={afternoonAvailability}>
+                                <div style={{ color: timeAvailabile === 'afternoon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={afternoonAvailability}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                                     <span style={{ margin: '5px' }} >12-5</span>
                                     Afternoon
                                 </div>
-                                <div style={{ color: teacherAvailability === 'evening' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={eveningAvailability}>
+                                <div style={{ color: timeAvailabile === 'evening' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={eveningAvailability}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                                     <span style={{ margin: '5px' }} >5-10</span>
                                     Evening
@@ -224,8 +227,9 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                             <h3>{arrayItem.name}</h3>
                             <h4>Experience: {arrayItem.experience}</h4>
                             <h5>Country of birth: {arrayItem.country}</h5>
-                            <h5>Availability {arrayItem.availability}</h5>
-                            <h5 className={FilterStyles.price}>Price: {arrayItem.price}</h5>
+                            <h5>Time availabile: {arrayItem.time}</h5>
+                            <h5>Days availabile: {arrayItem.days}</h5>
+                            <h5 className={FilterStyles.price}>Price: £ {arrayItem.price}</h5>
                         </div>
                     </TeacherBorder>
                 );

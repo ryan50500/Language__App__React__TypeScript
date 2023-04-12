@@ -7,7 +7,8 @@ const TeacherArray = [
         experience: '5 years',
         country: 'Poland',
         price: 17,
-        availability: 'morning',
+        time: 'morning',
+        days: ['Mon ', 'Tue ', 'Wed ', 'Thu ', 'Fri ', 'Sat ', 'Sun '],
         id: 0,
     },
     {
@@ -16,7 +17,8 @@ const TeacherArray = [
         experience: '2 years',
         country: 'France',
         price: 15,
-        availability: 'afternoon',
+        time: 'afternoon',
+        days: ['Mon ', 'Thu ', 'Fri ', 'Sat '],
         id: 1
     },
     {
@@ -25,7 +27,8 @@ const TeacherArray = [
         experience: '1 year',
         country: 'Argentina',
         price: 14,
-        availability: 'morning',
+        time: 'morning',
+        days: ['Sat ', 'Sun '],
         id: 2
     },
     {
@@ -34,7 +37,8 @@ const TeacherArray = [
         experience: '10 years',
         country: 'Spain',
         price: 45,
-        availability: 'evening',
+        time: 'evening',
+        days: ['Mon ', 'Tue ', 'Wed ', 'Thu ', 'Fri ', 'Sat ', 'Sun '],
         id: 3
     },
     {
@@ -43,7 +47,8 @@ const TeacherArray = [
         experience: '3 years',
         country: 'Russia',
         price: 20,
-        availability: 'morning',
+        time: 'morning',
+        days: ['Mon ', 'Tue ', 'Wed ', 'Thu ', 'Fri'],
         id: 4
     },
     {
@@ -52,7 +57,8 @@ const TeacherArray = [
         experience: '3 years',
         country: 'Ukraine',
         price: 10,
-        availability: 'afternoon',
+        time: 'afternoon',
+        days: ['Mon ', 'Tue ', 'Wed ', 'Sat ', 'Sun '],
         id: 5
     },
 ]
