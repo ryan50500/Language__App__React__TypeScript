@@ -1,3 +1,9 @@
+.teacher * {
+  margin: 0 0 0.9rem 0;
+}
+.price {
+  margin: 0;
+}
 
 .priceSlider {
   height: 7px;
@@ -168,4 +174,5 @@
     cursor: pointer;
     color: #3bb3bd;
 }
+
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import Teachers from './components/Teachers';
+import FilteredTeachers from './components/FilteredTeachers';
 
 function App() {
   return (
     <>
-      <Teachers />
+      <FilteredTeachers initialInputText="polish" />
     </>
   );
 }

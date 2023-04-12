@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import TeacherArray from '../TeacherArray';
 import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
-import TeacherStyles from './TeacherStyles.module.css';
 import FilterStyles from './FilterStyles.module.css';
 
 
@@ -124,7 +123,6 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             {/* filter the search results by language  */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
 
-
             {/* other filters */}
             <section id="filter__section" ref={filterRef}>
                 <div className={`${FilterStyles.filter__options} ${grayedOut ? FilterStyles.filter__options__grayed : ''}`}>
@@ -219,13 +217,13 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             {filteredTeachers.map((arrayItem) => {
                 return (
                     <TeacherBorder key={arrayItem.id}>
-                        <div className={TeacherStyles.teacher}>
+                        <div className={FilterStyles.teacher}>
                             <h2>{arrayItem.language}</h2>
                             <h3>{arrayItem.name}</h3>
                             <h4>Experience: {arrayItem.experience}</h4>
                             <h5>Country of birth: {arrayItem.country}</h5>
                             <h5>Availability {arrayItem.availability}</h5>
-                            <h5 className={TeacherStyles.price}>Price: {arrayItem.price}</h5>
+                            <h5 className={FilterStyles.price}>Price: {arrayItem.price}</h5>
                         </div>
                     </TeacherBorder>
                 );
