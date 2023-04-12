@@ -134,8 +134,21 @@
   display: flex;
   justify-content: center;
 }
-
+.filter__input__availability {
+  width: 176px;
+  height: 10px;
+}
 .filter__input input {
   width: 135px;
+}
+.availability__popout {
+  width: auto;
+  position: absolute;
+}
+.availability__flex {
+  display: flex;
+}
+.availability__options {
+  background-color: white;
 }
 
