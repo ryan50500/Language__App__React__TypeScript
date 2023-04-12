@@ -5,16 +5,12 @@ import SearchLanguage from './SearchLanguage';
 import FilterStyles from './FilterStyles.module.css';
 
 
-interface Props {
-    initialInputText: string | number;
-}
-
-const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
-    const [inputText, setInputText] = useState<string | number>(initialInputText);
+const FilteredTeachers: React.FC = () => {
+    const [inputText, setInputText] = useState<string | number>("polish");
     const [maxPrice, setMaxPrice] = useState<number>(50);
     const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
     const [timeAvailabile, setTimeAvailabile] = useState<string>("");
-    const [daysAvailabile, setDaysAvailabile] = useState<string>("");
+    const [daysAvailabile, setDaysAvailabile] = useState<string>('');
     const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
@@ -43,12 +39,11 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
     let filteredTeachers = TeacherArray.filter(
-        (arrayMatched) =>
-            arrayMatched.language.toLowerCase().indexOf(inputText.toString()) !== -1 &&
-            arrayMatched.price < maxPrice && arrayMatched.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
-            arrayMatched.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
-            // arrayMatched.days.includes(daysAvailabile + " ")
-            arrayMatched.days.indexOf(daysAvailabile + " ") > -1
+        (arrayKey) =>
+            arrayKey.language.toLowerCase().indexOf(inputText.toString()) !== -1 &&
+            arrayKey.price < maxPrice && arrayKey.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
+            arrayKey.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
+            (daysAvailabile === '' || arrayKey.days.includes(daysAvailabile + " "))
     );
 
 
@@ -206,13 +201,13 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                             </div>
                             <h3 style={{ margin: '15px 0' }}>Days of the week</h3>
                             <div className={FilterStyles.availability__flex}>
-                                <div className={FilterStyles.availability__day}>Mon</div>
-                                <div className={FilterStyles.availability__day}>Tues</div>
-                                <div className={FilterStyles.availability__day}>Wed</div>
-                                <div className={FilterStyles.availability__day}>Thu</div>
-                                <div className={FilterStyles.availability__day}>Fri</div>
-                                <div className={FilterStyles.availability__day}>Sat</div>
-                                <div className={FilterStyles.availability__day}>Sun</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Mon")}>Mon</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Tue")}>Tues</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Wed")}>Wed</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Thu")}>Thu</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Fri")}>Fri</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sat")}>Sat</div>
+                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sun")}>Sun</div>
                             </div>
                         </div>
                     </div>
