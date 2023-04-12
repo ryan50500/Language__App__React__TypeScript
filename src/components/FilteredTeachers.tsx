@@ -27,15 +27,10 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         function handleClickOutside(event: MouseEvent) {
             event.stopPropagation();
             if (filterRef.current && !filterRef.current.contains(event.target as HTMLElement)) {
-                console.log('poo')
                 setGrayedOut(false);
                 setIsBirthCountryVisible(false);
                 setIsAvailabilityVisible(false);
                 setIsPriceRangeVisible(false);
-            }
-            else {
-                console.log('filters are the target!')
-
             }
         }
         document.addEventListener('mousedown', handleClickOutside);
@@ -44,7 +39,6 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
-
 
 
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
@@ -71,7 +65,6 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
         setTeacherAvailability(event.target.value);
         // setMaxPrice(parseInt(event.target.value));
     };
-
 
 
     // REMOVE FILTERS
@@ -120,10 +113,8 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
 
     return (
         <>
-
             {/* filter the results by language  */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
-
 
             <section id="filter__section" ref={filterRef}>
                 <div className={`${PriceFilterStyles.filter__options} ${grayedOut ? PriceFilterStyles.filter__options__grayed : ''}`}>
@@ -143,7 +134,7 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                     </div>
                     {/* filter teachers by birth country */}
                     <div className={`${PriceFilterStyles.filter__padding} ${isBirthCountryVisible ? PriceFilterStyles.filter__padding__white : ''}`}>
-                        <div className={PriceFilterStyles.flex__column} onClick={openBirthCountryFilter}>
+                        <div className={PriceFilterStyles.flex__column} style={{ borderLeft: '1px solid lightgray', borderRight: '1px solid lightgray' }} onClick={openBirthCountryFilter}>
                             <span className={PriceFilterStyles.filter__type}>COUNTRY OF BIRTH</span>
                             <div className={PriceFilterStyles.flex__align}>
                                 <span>{teacherBirthCountry.length === 0 ? 'Any Country' : teacherBirthCountry}</span>
@@ -175,14 +166,13 @@ const FilteredTeachers: React.FC<Props> = ({ initialInputText }) => {
                         <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={`${PriceFilterStyles.priceSlider}`} />
                     </div>
                     <div className={`${PriceFilterStyles.filter__input} ${isBirthCountryVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`}>
-                        <input type="text" id="teacherBirth" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
+                        <input type="text" id="teacherBirth" placeholder="Search Country" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
                     </div>
                     <div className={`${PriceFilterStyles.filter__input} ${isAvailabilityVisible ? PriceFilterStyles.visible : PriceFilterStyles.hidden}`}>
                         <input type="text" id="teacherAvailability" name="teacherAvailability" value={teacherAvailability} onChange={handleAvailability} />
                     </div>
                 </div>
             </section>
-
 
             {filteredTeachers.map((arrayItem) => {
                 return (
