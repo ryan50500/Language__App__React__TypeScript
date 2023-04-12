@@ -84,13 +84,16 @@ const FilteredTeachers: React.FC = () => {
         setTeacherBirthCountry("")
         e.stopPropagation();
     };
-    // remove Availability filter
-    const removeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    // remove Time Availability filter
+    const removeTimeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         setIsAvailabilityVisible(false);
         setTimeAvailabile("");
         e.stopPropagation();
     };
-
+    // remove Days Availability filter
+    const removeDaysAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        setDaysAvailabile("")
+    };
 
 
     // OPEN FILTERS WHEN CLICKED
@@ -157,9 +160,17 @@ const FilteredTeachers: React.FC = () => {
                         <div className={FilterStyles.flex__column} onClick={openAvailabilityFilter}>
                             <span className={FilterStyles.filter__type}>I'M AVAILABLE</span>
                             <div className={FilterStyles.flex__align}>
+                                {/* filter by time */}
                                 {timeAvailabile.length === 0 ? <span>Any time</span> : <span style={{ textTransform: 'capitalize' }}>{timeAvailabile}</span>}
                                 {timeAvailabile.length > 0 ? (
-                                    <div className={FilterStyles.resetPrice} onClick={removeAvailability}>
+                                    <div className={FilterStyles.resetPrice} onClick={removeTimeAvailability}>
+                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
+                                    </div>) : null
+                                }
+                                {/* filter by days */}
+                                <span style={{ paddingLeft: '15px' }}>{daysAvailabile}</span>
+                                {daysAvailabile.length > 0 ? (
+                                    <div className={FilterStyles.resetPrice} onClick={removeDaysAvailability}>
                                         <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
                                     </div>) : null
                                 }
@@ -201,13 +212,13 @@ const FilteredTeachers: React.FC = () => {
                             </div>
                             <h3 style={{ margin: '15px 0' }}>Days of the week</h3>
                             <div className={FilterStyles.availability__flex}>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Mon")}>Mon</div>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Tue")}>Tues</div>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Wed")}>Wed</div>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Thu")}>Thu</div>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Fri")}>Fri</div>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sat")}>Sat</div>
-                                <div className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sun")}>Sun</div>
+                                <div style={{ color: daysAvailabile === 'Mon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Mon")}>Mon</div>
+                                <div style={{ color: daysAvailabile === 'Tue' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Tue")}>Tues</div>
+                                <div style={{ color: daysAvailabile === 'Wed' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Wed")}>Wed</div>
+                                <div style={{ color: daysAvailabile === 'Thu' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Thu")}>Thu</div>
+                                <div style={{ color: daysAvailabile === 'Fri' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Fri")}>Fri</div>
+                                <div style={{ color: daysAvailabile === 'Sat' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sat")}>Sat</div>
+                                <div style={{ color: daysAvailabile === 'Sun' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sun")}>Sun</div>
                             </div>
                         </div>
                     </div>
