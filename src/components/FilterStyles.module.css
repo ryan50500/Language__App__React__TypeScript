@@ -1,6 +1,10 @@
 .teacher * {
   margin: 0 0 0.9rem 0;
 }
+.teacher__name {
+  font-weight: 700;
+    font-size: 18px;
+}
 .price {
   margin: 0;
 }
@@ -178,4 +182,22 @@
   cursor: pointer;
   color: #3bb3bd;
 }
-
+.teacher__contact {
+  display: flex;
+    flex-direction: column;
+}
+.teacher__flex {
+  display: flex;
+  justify-content: space-around;
+}
+.teacher__flex__baseline {
+  display: flex;
+  justify-content: space-around;
+  align-items: baseline;
+}
+.teacher__book {
+  margin-top: 22px;
+}
+.teacher__message {
+  margin-top: 7px;
+}
