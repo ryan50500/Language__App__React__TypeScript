@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import TeacherArray from '../TeacherArray';
 import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
+import NoResultsFound from './NoResultsFound';
 import FilterStyles from './FilterStyles.module.css';
 
 
@@ -225,6 +226,8 @@ const FilteredTeachers: React.FC = () => {
                     </div>
                 </div>
             </section>
+
+            <NoResultsFound filteredTeachers={filteredTeachers} />
 
             {filteredTeachers.map((arrayItem) => {
                 return (
