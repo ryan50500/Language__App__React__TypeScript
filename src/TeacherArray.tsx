@@ -3,6 +3,7 @@
 const TeacherArray = [
     {
         language: 'Polish',
+        flag: 'https://flagcdn.com/48x36/pl.png',
         native: true,
         name: 'Dawid Czaskowski',
         experience: '5 years',
@@ -14,6 +15,7 @@ const TeacherArray = [
     },
     {
         language: 'French',
+        flag: 'https://flagcdn.com/48x36/fr.png',
         native: true,
         name: 'Gilles Simon',
         experience: '2 years',
@@ -25,6 +27,7 @@ const TeacherArray = [
     },
     {
         language: 'Spanish',
+        flag: 'https://flagcdn.com/48x36/ar.png',
         native: true,
         name: 'David Ferrer',
         experience: '1 year',
@@ -36,6 +39,7 @@ const TeacherArray = [
     },
     {
         language: 'Spanish',
+        flag: 'https://flagcdn.com/48x36/es.png',
         native: true,
         name: 'Feliciano Lopez',
         experience: '10 years',
@@ -47,6 +51,7 @@ const TeacherArray = [
     },
     {
         language: 'Russian',
+        flag: 'https://flagcdn.com/48x36/ru.png',
         native: true,
         name: 'Daniil Medvedev',
         experience: '3 years',
@@ -58,6 +63,7 @@ const TeacherArray = [
     },
     {
         language: 'Russian',
+        flag: 'https://flagcdn.com/48x36/ua.png',
         native: true,
         name: 'Sergiy Stakhovsky',
         experience: '3 years',
@@ -69,6 +75,7 @@ const TeacherArray = [
     },
     {
         language: 'Spanish',
+        flag: 'https://flagcdn.com/48x36/it.png',
         native: false,
         name: 'Lorenzo Gutti',
         experience: '3 year',
@@ -80,6 +87,7 @@ const TeacherArray = [
     },
     {
         language: 'Polish',
+        flag: 'https://flagcdn.com/48x36/pl.png',
         native: true,
         name: 'Zbigniew Glik',
         experience: '5 years',
@@ -91,10 +99,11 @@ const TeacherArray = [
     },
     {
         language: 'Polish',
+        flag: 'https://flagcdn.com/48x36/ru.png',
         native: false,
         name: 'Yuri Gavralov',
         experience: '1 years',
-        country: 'Ukraine',
+        country: 'Russia',
         price: 10,
         time: 'evening',
         days: ['Tue ', 'Wed', 'Thu'],

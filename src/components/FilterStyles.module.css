@@ -4,6 +4,8 @@
 .teacher__name {
   font-weight: 700;
     font-size: 18px;
+    display: flex;
+    align-items: baseline;
 }
 .price {
   margin: 0;
