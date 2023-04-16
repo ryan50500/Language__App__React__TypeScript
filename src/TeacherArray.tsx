@@ -3,6 +3,7 @@
 const TeacherArray = [
     {
         language: 'Polish',
+        native: true,
         name: 'Dawid Czaskowski',
         experience: '5 years',
         country: 'Poland',
@@ -13,6 +14,7 @@ const TeacherArray = [
     },
     {
         language: 'French',
+        native: true,
         name: 'Gilles Simon',
         experience: '2 years',
         country: 'France',
@@ -23,6 +25,7 @@ const TeacherArray = [
     },
     {
         language: 'Spanish',
+        native: true,
         name: 'David Ferrer',
         experience: '1 year',
         country: 'Argentina',
@@ -33,6 +36,7 @@ const TeacherArray = [
     },
     {
         language: 'Spanish',
+        native: true,
         name: 'Feliciano Lopez',
         experience: '10 years',
         country: 'Spain',
@@ -43,6 +47,7 @@ const TeacherArray = [
     },
     {
         language: 'Russian',
+        native: true,
         name: 'Daniil Medvedev',
         experience: '3 years',
         country: 'Russia',
@@ -53,6 +58,7 @@ const TeacherArray = [
     },
     {
         language: 'Russian',
+        native: true,
         name: 'Sergiy Stakhovsky',
         experience: '3 years',
         country: 'Ukraine',
@@ -60,6 +66,39 @@ const TeacherArray = [
         time: 'afternoon evening',
         days: ['Mon ', 'Tue ', 'Wed'],
         id: 5
+    },
+    {
+        language: 'Spanish',
+        native: false,
+        name: 'Lorenzo Gutti',
+        experience: '3 year',
+        country: 'Italy',
+        price: 13,
+        time: 'morning afternoon evening',
+        days: ['Sat ', 'Sun '],
+        id: 6
+    },
+    {
+        language: 'Polish',
+        native: true,
+        name: 'Zbigniew Glik',
+        experience: '5 years',
+        country: 'Poland',
+        price: 9,
+        time: 'morning afternoon',
+        days: ['Mon ', 'Tue ', 'Wed', 'Thu'],
+        id: 7
+    },
+    {
+        language: 'Polish',
+        native: false,
+        name: 'Yuri Gavralov',
+        experience: '1 years',
+        country: 'Ukraine',
+        price: 10,
+        time: 'evening',
+        days: ['Tue ', 'Wed', 'Thu'],
+        id: 8
     },
 ]
 

@@ -54,7 +54,7 @@
 
 .resetPrice {
   position: relative;
-  margin-left: 5px;
+  margin-left: 7px;
   border-radius: 50%;
   background-color: #dadfe1;
   color: gray;
@@ -105,10 +105,10 @@
   align-items: center;
 }
 .flex__align span {
-  font-size: 13px;
+  font-size: 14px;
 }
 .flex__column .filter__type {
-  font-size: 12px;
+  font-size: 12.5px;
   color: #8a959e;
   margin-bottom: 7px;
   letter-spacing: 1px;
@@ -144,10 +144,13 @@
   width: 176px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 .filter__input__availability {
   width: 176px;
   height: 10px;
+  z-index: 1;
 }
 .filter__input input {
   width: 135px;
@@ -194,10 +197,25 @@
   display: flex;
   justify-content: space-around;
   align-items: baseline;
+  margin-top: 8px;
 }
-.teacher__book {
+.teacher__buttons {
   margin-top: 22px;
+  background-color: #0096b2;
+  padding: 11px 28px;
+  border: none;
+  border-radius: 7px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  cursor: pointer;
 }
-.teacher__message {
+.teacher__buttons:hover { 
+  opacity: 0.8;
+}
+
+.teacher__buttons.message {
   margin-top: 7px;
+  background-color: #f7f5f2;
+  color: black;
 }

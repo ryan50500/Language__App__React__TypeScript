@@ -6,7 +6,7 @@ import FilterStyles from './FilterStyles.module.css';
 
 
 const FilteredTeachers: React.FC = () => {
-    const [inputText, setInputText] = useState<string | number>("polish");
+    const [inputText, setInputText] = useState<string | number>("");
     const [maxPrice, setMaxPrice] = useState<number>(50);
     const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
     const [timeAvailabile, setTimeAvailabile] = useState<string>("");
@@ -40,7 +40,7 @@ const FilteredTeachers: React.FC = () => {
     // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
     let filteredTeachers = TeacherArray.filter(
         (arrayKey) =>
-            arrayKey.language.toLowerCase().indexOf(inputText.toString()) !== -1 &&
+            arrayKey.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
             arrayKey.price < maxPrice && arrayKey.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
             arrayKey.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
             (daysAvailabile === '' || arrayKey.days.includes(daysAvailabile + " "))
@@ -183,10 +183,11 @@ const FilteredTeachers: React.FC = () => {
                     {/* filter teachers by price */}
                     <div className={`${FilterStyles.filter__input} ${isPriceRangeVisible ? FilterStyles.visible : FilterStyles.hidden}`} >
                         <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={`${FilterStyles.priceSlider}`} />
+                        <div>£ {maxPrice}</div>
                     </div>
                     {/* filter teachers by birth country */}
                     <div className={`${FilterStyles.filter__input} ${isBirthCountryVisible ? FilterStyles.visible : FilterStyles.hidden}`}>
-                        <input type="text" id="teacherBirth" placeholder="Search Country" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
+                        <input type="text" style={{ padding: '9px 0', borderRadius: '10px', textAlign: 'center' }} id="teacherBirth" placeholder="Search Country" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
                     </div>
                     {/* filter teachers by availability */}
                     <div className={`${FilterStyles.filter__input__availability} ${isAvailabilityVisible ? FilterStyles.visible : FilterStyles.hidden}`}>
@@ -230,7 +231,11 @@ const FilteredTeachers: React.FC = () => {
                     <TeacherBorder key={arrayItem.id}>
                         <div className={FilterStyles.teacher}>
                             <h4 className={FilterStyles.teacher__name}>{arrayItem.name}</h4>
-                            <h4>Teaches: {arrayItem.language}</h4>
+                            <h4>Teaches: {arrayItem.language}
+                                {arrayItem.native ? (
+                                    <span style={{ backgroundColor: '#daf2dc', color: '#007913', fontSize: '15px', marginLeft: '5px', padding: '5px 9px', borderRadius: '10px' }}>Native</span>
+                                ) : null}
+                            </h4>
                             <h4>Experience: {arrayItem.experience}</h4>
                             <h5>Country of birth: {arrayItem.country}</h5>
                             <h5>Time availabile: {arrayItem.time}</h5>
@@ -255,8 +260,8 @@ const FilteredTeachers: React.FC = () => {
                                 <div><span style={{ fontSize: '15px', fontWeight: '100' }}>55</span><span style={{ fontSize: '13.5px', color: 'gray', paddingLeft: '5px' }}>reviews</span></div>
                                 <span style={{ fontSize: '13.5px', color: 'gray' }}>1-hour lesson</span>
                             </div>
-                            <button className={FilterStyles.teacher__book}>Book trial lesson</button>
-                            <button className={FilterStyles.teacher__message}>Message</button>
+                            <button className={FilterStyles.teacher__buttons}>Book trial lesson</button>
+                            <button className={`${FilterStyles.teacher__buttons} ${FilterStyles.message}`}>Message</button>
                         </div>
                     </TeacherBorder>
                 );
