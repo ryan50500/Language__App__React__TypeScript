@@ -26,3 +26,9 @@ img {
 *{
   font-family: sans-serif;
 }
+
+@media (max-width: 767px) {
+  #root {
+    display: none;
+  }
+}
