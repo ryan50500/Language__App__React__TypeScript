@@ -22,7 +22,7 @@ const FilteredTeachers: React.FC = () => {
     const [grayedOut, setGrayedOut] = useState(false);
 
 
-    // function is triggered when user clicks outside of the filters
+    // hide the filters when user clicks outside of them
     const filterRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
@@ -34,24 +34,23 @@ const FilteredTeachers: React.FC = () => {
             }
         }
         document.addEventListener('mousedown', handleClickOutside);
-
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
 
 
-    // filter the results by language searched, price, birth country of teacher, and teacher availabilty 
+    // Show filtered teachers 
     let filteredTeachers = TeacherArray.filter(
-        (arrayKey) =>
-            arrayKey.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
-            arrayKey.price < maxPrice && arrayKey.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
-            arrayKey.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
-            (daysAvailabile === '' || arrayKey.days.includes(daysAvailabile + " "))
+        (teacher) =>
+            teacher.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
+            teacher.price < maxPrice && teacher.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
+            teacher.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
+            (daysAvailabile === '' || teacher.days.includes(daysAvailabile + " "))
     );
 
 
-    // this function is called when user selects a price range
+    // filter teachers by price
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMaxPrice(parseInt(event.target.value));
         // setMaxPrice(parseInt(event.target.value));
