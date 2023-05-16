@@ -3,6 +3,7 @@ import TeacherArray from '../TeacherArray';
 import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
 import NoResultsFound from './NoResultsFound';
+import FilteredTeachersByPrice from './FilteredTeachersByPrice';
 import FilterStyles from './FilterStyles.module.css';
 
 
@@ -22,7 +23,6 @@ const FilteredTeachers: React.FC = () => {
     const filterRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         function handleClickOutside(event: MouseEvent) {
-            event.stopPropagation();
             if (filterRef.current && !filterRef.current.contains(event.target as HTMLElement)) {
                 setGrayedOut(false);
                 setIsBirthCountryVisible(false);
@@ -74,22 +74,19 @@ const FilteredTeachers: React.FC = () => {
 
     // REMOVE FILTERS
     // remove Price filter
-    const removePriceFilter = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const removePriceFilter = () => {
         setIsPriceRangeVisible(false);
         setMaxPrice(50);
-        e.stopPropagation();
     };
     // remove Birth Country filter
     const removeBirthCountry = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         setIsBirthCountryVisible(false);
         setTeacherBirthCountry("")
-        e.stopPropagation();
     };
     // remove Time Availability filter
     const removeTimeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         setIsAvailabilityVisible(false);
         setTimeAvailabile("");
-        e.stopPropagation();
     };
     // remove Days Availability filter
     const removeDaysAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -122,26 +119,19 @@ const FilteredTeachers: React.FC = () => {
 
     return (
         <>
-            {/* filter the search results by language  */}
+            {/*Filter search */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
 
-            {/* other filters */}
+            {/* Other filters */}
             <section id="filter__section" ref={filterRef}>
                 <div className={`${FilterStyles.filter__options} ${grayedOut ? FilterStyles.filter__options__grayed : ''}`}>
                     {/* filter teachers by price */}
-                    <div className={`${FilterStyles.filter__padding} ${isPriceRangeVisible ? FilterStyles.filter__padding__white : ''}`}>
-                        <div className={FilterStyles.flex__column} onClick={openPriceFilter}>
-                            <span className={FilterStyles.filter__type}>MAX LESSON PRICE</span>
-                            <div className={FilterStyles.flex__align}>
-                                <span>£ {maxPrice}</span>
-                                {maxPrice < 50 ? (
-                                    <div className={FilterStyles.resetPrice} onClick={removePriceFilter}>
-                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                    </div>) : null
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <FilteredTeachersByPrice
+                        isPriceRangeVisible={isPriceRangeVisible}
+                        openPriceFilter={openPriceFilter}
+                        removePriceFilter={removePriceFilter}
+                        maxPrice={maxPrice}
+                    />
                     {/* filter teachers by birth country */}
                     <div className={`${FilterStyles.filter__padding} ${isBirthCountryVisible ? FilterStyles.filter__padding__white : ''}`}>
                         <div className={FilterStyles.flex__column} style={{ borderLeft: '1px solid lightgray', borderRight: '1px solid lightgray' }} onClick={openBirthCountryFilter}>
