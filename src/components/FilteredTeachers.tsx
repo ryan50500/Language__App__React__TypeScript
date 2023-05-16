@@ -4,6 +4,9 @@ import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
 import NoResultsFound from './NoResultsFound';
 import FilteredTeachersByPrice from './FilteredTeachersByPrice';
+import FiltersShowOnClick from './FiltersShowOnClick';
+import FilteredTeachersByBirthCountry from './FilteredTeachersByBirthCountry';
+import FilteredTeachersByAvailability from './FilteredTeachersByAvailability';
 import FilterStyles from './FilterStyles.module.css';
 
 
@@ -79,17 +82,17 @@ const FilteredTeachers: React.FC = () => {
         setMaxPrice(50);
     };
     // remove Birth Country filter
-    const removeBirthCountry = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const removeBirthCountry = () => {
         setIsBirthCountryVisible(false);
         setTeacherBirthCountry("")
     };
     // remove Time Availability filter
-    const removeTimeAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const removeTimeAvailability = () => {
         setIsAvailabilityVisible(false);
         setTimeAvailabile("");
     };
     // remove Days Availability filter
-    const removeDaysAvailability = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const removeDaysAvailability = () => {
         setDaysAvailabile("")
     };
 
@@ -119,10 +122,8 @@ const FilteredTeachers: React.FC = () => {
 
     return (
         <>
-            {/*Filter search */}
+            {/* filter by search input */}
             <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
-
-            {/* Other filters */}
             <section id="filter__section" ref={filterRef}>
                 <div className={`${FilterStyles.filter__options} ${grayedOut ? FilterStyles.filter__options__grayed : ''}`}>
                     {/* filter teachers by price */}
@@ -133,90 +134,41 @@ const FilteredTeachers: React.FC = () => {
                         maxPrice={maxPrice}
                     />
                     {/* filter teachers by birth country */}
-                    <div className={`${FilterStyles.filter__padding} ${isBirthCountryVisible ? FilterStyles.filter__padding__white : ''}`}>
-                        <div className={FilterStyles.flex__column} style={{ borderLeft: '1px solid lightgray', borderRight: '1px solid lightgray' }} onClick={openBirthCountryFilter}>
-                            <span className={FilterStyles.filter__type}>COUNTRY OF BIRTH</span>
-                            <div className={FilterStyles.flex__align}>
-                                {teacherBirthCountry.length === 0 ? <span>Any Country</span> : <span style={{ textTransform: 'capitalize' }}>{teacherBirthCountry}</span>}
-                                {teacherBirthCountry.length > 0 ? (
-                                    <div className={FilterStyles.resetPrice} onClick={removeBirthCountry}>
-                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                    </div>) : null
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <FilteredTeachersByBirthCountry
+                        isBirthCountryVisible={isBirthCountryVisible}
+                        openBirthCountryFilter={openBirthCountryFilter}
+                        teacherBirthCountry={teacherBirthCountry}
+                        removeBirthCountry={removeBirthCountry}
+                    />
                     {/* filter teachers by availability */}
-                    <div className={`${FilterStyles.filter__padding} ${isAvailabilityVisible ? FilterStyles.filter__padding__white : ''}`}>
-                        <div className={FilterStyles.flex__column} onClick={openAvailabilityFilter}>
-                            <span className={FilterStyles.filter__type}>I'M AVAILABLE</span>
-                            <div className={FilterStyles.flex__align}>
-                                {/* filter by time */}
-                                {timeAvailabile.length === 0 ? <span>Any time</span> : <span style={{ textTransform: 'capitalize' }}>{timeAvailabile}</span>}
-                                {timeAvailabile.length > 0 ? (
-                                    <div className={FilterStyles.resetPrice} onClick={removeTimeAvailability}>
-                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                    </div>) : null
-                                }
-                                {/* filter by days */}
-                                <span style={{ paddingLeft: '15px' }}>{daysAvailabile}</span>
-                                {daysAvailabile.length > 0 ? (
-                                    <div className={FilterStyles.resetPrice} onClick={removeDaysAvailability}>
-                                        <svg height="9" viewBox="0 0 12 12" width="9" xmlns="http://www.w3.org/2000/svg" className={FilterStyles.resetPriceCross}><path d="M6 4.586L10.293.293l1.414 1.414L7.414 6l4.293 4.293-1.414 1.414L6 7.414l-4.293 4.293-1.414-1.414L4.586 6 .293 1.707 1.707.293z"></path></svg>
-                                    </div>) : null
-                                }
-                            </div>
-                        </div>
-                    </div>
+                    <FilteredTeachersByAvailability
+                        isAvailabilityVisible={isAvailabilityVisible}
+                        openAvailabilityFilter={openAvailabilityFilter}
+                        timeAvailabile={timeAvailabile}
+                        removeTimeAvailability={removeTimeAvailability}
+                        daysAvailabile={daysAvailabile}
+                        removeDaysAvailability={removeDaysAvailability}
+                    />
                 </div>
-                {/* filters open up when clicked*/}
-                <div className={`${FilterStyles.filter__options} ${FilterStyles.hover}`}>
-                    {/* filter teachers by price */}
-                    <div className={`${FilterStyles.filter__input} ${isPriceRangeVisible ? FilterStyles.visible : FilterStyles.hidden}`} >
-                        <input type="range" id="priceRange" name="priceRange" min="0" max="50" step="5" value={maxPrice} onChange={handlePriceChange} className={`${FilterStyles.priceSlider}`} />
-                        <div>£ {maxPrice}</div>
-                    </div>
-                    {/* filter teachers by birth country */}
-                    <div className={`${FilterStyles.filter__input} ${isBirthCountryVisible ? FilterStyles.visible : FilterStyles.hidden}`}>
-                        <input type="text" style={{ padding: '9px 0', borderRadius: '10px', textAlign: 'center' }} id="teacherBirth" placeholder="Search Country" name="teacherBirth" value={teacherBirthCountry} onChange={handleBirthCountry} />
-                    </div>
-                    {/* filter teachers by availability */}
-                    <div className={`${FilterStyles.filter__input__availability} ${isAvailabilityVisible ? FilterStyles.visible : FilterStyles.hidden}`}>
-                        <input type="text" id="teacherAvailability" name="teacherAvailability" style={{ width: '167px', display: 'none' }} />
-                        <div className={`${FilterStyles.availability__options} ${FilterStyles.availability__popout}`}>
-                            <h3>Time of the day, in your time zone</h3>
-                            <div className={FilterStyles.availability__flex}>
-                                <div style={{ color: timeAvailabile === 'morning' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={morningAvailability}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-sunrise"><path d="M17 18a5 5 0 0 0-10 0"></path><line x1="12" y1="2" x2="12" y2="9"></line><line x1="4.22" y1="10.22" x2="5.64" y2="11.64"></line><line x1="1" y1="18" x2="3" y2="18"></line><line x1="21" y1="18" x2="23" y2="18"></line><line x1="18.36" y1="11.64" x2="19.78" y2="10.22"></line><line x1="23" y1="22" x2="1" y2="22"></line><polyline points="8 6 12 2 16 6"></polyline></svg>
-                                    <span style={{ margin: '5px' }} >6-12</span>
-                                    Morning
-                                </div>
-                                <div style={{ color: timeAvailabile === 'afternoon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={afternoonAvailability}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                                    <span style={{ margin: '5px' }} >12-5</span>
-                                    Afternoon
-                                </div>
-                                <div style={{ color: timeAvailabile === 'evening' ? '#3bb3bd' : "" }} className={FilterStyles.availability__time} onClick={eveningAvailability}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                                    <span style={{ margin: '5px' }} >5-10</span>
-                                    Evening
-                                </div>
-                            </div>
-                            <h3 style={{ margin: '15px 0' }}>Days of the week</h3>
-                            <div className={FilterStyles.availability__flex}>
-                                <div style={{ color: daysAvailabile === 'Mon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Mon")}>Mon</div>
-                                <div style={{ color: daysAvailabile === 'Tue' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Tue")}>Tues</div>
-                                <div style={{ color: daysAvailabile === 'Wed' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Wed")}>Wed</div>
-                                <div style={{ color: daysAvailabile === 'Thu' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Thu")}>Thu</div>
-                                <div style={{ color: daysAvailabile === 'Fri' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Fri")}>Fri</div>
-                                <div style={{ color: daysAvailabile === 'Sat' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sat")}>Sat</div>
-                                <div style={{ color: daysAvailabile === 'Sun' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sun")}>Sun</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {/* Open filters when clicked */}
+                <FiltersShowOnClick
+                    eveningAvailability={eveningAvailability}
+                    teacherBirthCountry={teacherBirthCountry}
+                    handleBirthCountry={handleBirthCountry}
+                    isPriceRangeVisible={isPriceRangeVisible}
+                    maxPrice={maxPrice}
+                    handlePriceChange={handlePriceChange}
+                    isBirthCountryVisible={isBirthCountryVisible}
+                    isAvailabilityVisible={isAvailabilityVisible}
+                    timeAvailabile={timeAvailabile}
+                    daysAvailabile={daysAvailabile}
+                    setDaysAvailabile={setDaysAvailabile}
+                    morningAvailability={morningAvailability}
+                    afternoonAvailability={afternoonAvailability}
+                />
             </section>
 
+            {/* No teacher found component */}
             <NoResultsFound filteredTeachers={filteredTeachers} />
 
             {filteredTeachers.map((arrayItem) => {
