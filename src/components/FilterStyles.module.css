@@ -7,6 +7,10 @@
   margin: 20px auto;
   display: flex;
   justify-content: space-between;
+   /* Add necessary styles for flip effect */
+   position: relative;
+   transition: transform 0.5s;
+   transform-style: preserve-3d;
 }
 .teacher * {
   margin: 0 0 0.9rem 0;
@@ -225,5 +229,15 @@
   opacity: 0.8;
 }
 .flipped {
-  background-color: deeppink;
+  transform: rotateY(180deg);
 }
+
+
+
+
+
+
+
+
+
+
