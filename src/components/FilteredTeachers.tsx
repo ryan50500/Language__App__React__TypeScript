@@ -200,8 +200,7 @@ const FilteredTeachers: React.FC = () => {
                                 <div><span style={{ fontSize: '15px', fontWeight: '100' }}>{arrayItem.reviews}</span><span style={{ fontSize: '13.5px', color: 'gray', paddingLeft: '5px' }}>reviews</span></div>
                                 <span style={{ fontSize: '13.5px', color: 'gray' }}>1-hour lesson</span>
                             </div>
-                            <button className={FilterStyles.teacher__buttons}>Book trial lesson</button>
-                            <button className={`${FilterStyles.teacher__buttons} ${FilterStyles.message}`}>Message</button>
+                            <button className={FilterStyles.teacher__buttons}>View contact info</button>
                         </div>
                     </TeacherBorder>
                 );
