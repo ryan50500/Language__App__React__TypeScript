@@ -21,14 +21,7 @@ const FilteredTeachers: React.FC = () => {
     const [grayedOut, setGrayedOut] = useState(false);
 
 
-    // interface Teacher {
-    //     id: number;
-    //     flipped: boolean;
-    //     // Rest of your teacher properties
-    //   }
-
-
-    // NEW TEST
+    // Flipped cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
 
@@ -130,15 +123,20 @@ const FilteredTeachers: React.FC = () => {
     };
 
 
-    // TEST TEST TEST
+    // Handle flipped cards
     const handleFlipped = (id: number) => {
         setFlippedCards((prevFlippedCards) => {
+            // if card IS ALREADY flipped (id already exists in the prevFlippedCards array)
             if (prevFlippedCards.includes(id)) {
+                // returns a new array without the clicked card (basically "unflipping" it)
                 return prevFlippedCards.filter((cardId) => cardId !== id);
+                // if card is NOT flipped
             } else {
+                // "flips" the card by adding its ID to the flippedCards array.
                 return [...prevFlippedCards, id];
             }
         });
+        console.log(flippedCards)
     };
 
 
@@ -194,8 +192,10 @@ const FilteredTeachers: React.FC = () => {
             <NoResultsFound filteredTeachers={filteredTeachers} />
 
             {filteredTeachers.map((arrayItem) => {
+                // const [grayedOut, setGrayedOut] = useState(false);
                 return (
-                    <div key={arrayItem.id} className={FilterStyles.card}>
+                    // if 'flippedCards' array includes the card ID... add the flipped class
+                    <div key={arrayItem.id} className={`${FilterStyles.card}${flippedCards.includes(arrayItem.id) ? FilterStyles.flipped : ''}`}>
                         <div className={FilterStyles.teacher}>
                             <h4 className={FilterStyles.teacher__name}>{arrayItem.name}<img style={{ paddingLeft: '10px', width: '34px' }} src={arrayItem.flag}></img></h4>
                             <h4>Teaches: {arrayItem.language}
