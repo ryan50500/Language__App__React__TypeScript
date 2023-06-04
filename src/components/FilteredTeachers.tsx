@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import TeacherArray from '../TeacherArray';
-import TeacherBorder from './TeacherBorder';
 import SearchLanguage from './SearchLanguage';
 import NoResultsFound from './NoResultsFound';
 import FilteredTeachersByPrice from './FilteredTeachersByPrice';
@@ -20,6 +19,17 @@ const FilteredTeachers: React.FC = () => {
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
     const [grayedOut, setGrayedOut] = useState(false);
+
+
+    // interface Teacher {
+    //     id: number;
+    //     flipped: boolean;
+    //     // Rest of your teacher properties
+    //   }
+
+
+    // NEW TEST
+    const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
 
     // hide the filters when user clicks outside of them
@@ -119,6 +129,19 @@ const FilteredTeachers: React.FC = () => {
         setIsPriceRangeVisible(false);
     };
 
+
+    // TEST TEST TEST
+    const handleFlipped = (id: number) => {
+        setFlippedCards((prevFlippedCards) => {
+            if (prevFlippedCards.includes(id)) {
+                return prevFlippedCards.filter((cardId) => cardId !== id);
+            } else {
+                return [...prevFlippedCards, id];
+            }
+        });
+    };
+
+
     return (
         <>
             {/* filter by search input */}
@@ -172,7 +195,7 @@ const FilteredTeachers: React.FC = () => {
 
             {filteredTeachers.map((arrayItem) => {
                 return (
-                    <TeacherBorder key={arrayItem.id}>
+                    <div key={arrayItem.id} className={FilterStyles.card}>
                         <div className={FilterStyles.teacher}>
                             <h4 className={FilterStyles.teacher__name}>{arrayItem.name}<img style={{ paddingLeft: '10px', width: '34px' }} src={arrayItem.flag}></img></h4>
                             <h4>Teaches: {arrayItem.language}
@@ -200,9 +223,9 @@ const FilteredTeachers: React.FC = () => {
                                 <div><span style={{ fontSize: '15px', fontWeight: '100' }}>{arrayItem.reviews}</span><span style={{ fontSize: '13.5px', color: 'gray', paddingLeft: '5px' }}>reviews</span></div>
                                 <span style={{ fontSize: '13.5px', color: 'gray' }}>1-hour lesson</span>
                             </div>
-                            <button className={FilterStyles.teacher__buttons}>View contact info</button>
+                            <button className={FilterStyles.teacher__buttons} onClick={() => handleFlipped(arrayItem.id)}>View contact info</button>
                         </div>
-                    </TeacherBorder>
+                    </div>
                 );
             })}
         </>
