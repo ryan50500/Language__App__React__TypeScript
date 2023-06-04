@@ -7,6 +7,7 @@ import FiltersShowOnClick from './FiltersShowOnClick';
 import FilteredTeachersByBirthCountry from './FilteredTeachersByBirthCountry';
 import FilteredTeachersByAvailability from './FilteredTeachersByAvailability';
 import FilterStyles from './FilterStyles.module.css';
+import { isAbsolute } from 'path';
 
 
 const FilteredTeachers: React.FC = () => {
@@ -224,6 +225,10 @@ const FilteredTeachers: React.FC = () => {
                             </div>
                             <button className={FilterStyles.teacher__buttons} onClick={() => handleFlipped(arrayItem.id)}>View contact info</button>
                         </div>
+                        {/* IF CARD IS FLIPPED */}
+                        {flippedCards.includes(arrayItem.id) ? (
+                            <div>some text</div>
+                        ) : null}
                     </div>
                 );
             })}
