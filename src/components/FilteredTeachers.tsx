@@ -195,7 +195,7 @@ const FilteredTeachers: React.FC = () => {
                 // const [grayedOut, setGrayedOut] = useState(false);
                 return (
                     // if 'flippedCards' array includes the card ID... add the flipped class
-                    <div key={arrayItem.id} className={`${FilterStyles.card}${flippedCards.includes(arrayItem.id) ? FilterStyles.flipped : ''}`}>
+                    <div key={arrayItem.id} className={`${FilterStyles.card} ${flippedCards.includes(arrayItem.id) ? FilterStyles.flipped : ''}`}>
                         <div className={FilterStyles.teacher}>
                             <h4 className={FilterStyles.teacher__name}>{arrayItem.name}<img style={{ paddingLeft: '10px', width: '34px' }} src={arrayItem.flag}></img></h4>
                             <h4>Teaches: {arrayItem.language}
