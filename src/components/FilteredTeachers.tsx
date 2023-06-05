@@ -6,8 +6,8 @@ import FilteredTeachersByPrice from './FilteredTeachersByPrice';
 import FiltersShowOnClick from './FiltersShowOnClick';
 import FilteredTeachersByBirthCountry from './FilteredTeachersByBirthCountry';
 import FilteredTeachersByAvailability from './FilteredTeachersByAvailability';
+import ViewMoreTeachers from './ViewMoreTeachers'
 import FilterStyles from './FilterStyles.module.css';
-import { isAbsolute } from 'path';
 
 
 const FilteredTeachers: React.FC = () => {
@@ -20,10 +20,11 @@ const FilteredTeachers: React.FC = () => {
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
     const [grayedOut, setGrayedOut] = useState(false);
-
-
     // Flipped cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
+    // number of teachers to show at a time (currently set to 5)
+    const [displayedTeachers, setDisplayedTeachers] = useState(5);
+
 
 
     // hide the filters when user clicks outside of them
@@ -52,6 +53,11 @@ const FilteredTeachers: React.FC = () => {
             teacher.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
             (daysAvailabile === '' || teacher.days.includes(daysAvailabile + " "))
     );
+
+    // show more teaches when button is clicked
+    const handleViewMoreTeachers = () => {
+        setDisplayedTeachers((prevDisplayedTeachers) => prevDisplayedTeachers + 5);
+    };
 
 
     // filter teachers by price
@@ -192,7 +198,8 @@ const FilteredTeachers: React.FC = () => {
             {/* No teacher found component */}
             <NoResultsFound filteredTeachers={filteredTeachers} />
 
-            {filteredTeachers.map((arrayItem) => {
+
+            {filteredTeachers.slice(0, displayedTeachers).map((arrayItem) => {
                 return (
                     // if 'flippedCards' array includes the card ID... add the 'flipped' class
                     <div key={arrayItem.id} className={`${FilterStyles.card} ${flippedCards.includes(arrayItem.id) ? FilterStyles.flipped : ''}`}>
@@ -239,6 +246,10 @@ const FilteredTeachers: React.FC = () => {
                     </div>
                 );
             })}
+            {/* only show 'View more teachers' button if there are more teachers in the filtered array that haven't been displayed yet. */}
+            {filteredTeachers.length > displayedTeachers && (
+                <ViewMoreTeachers handleViewMoreTeachers={handleViewMoreTeachers} />
+            )}
         </>
     );
 };
