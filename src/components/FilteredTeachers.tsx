@@ -227,7 +227,12 @@ const FilteredTeachers: React.FC = () => {
                         </div>
                         {/* IF CARD IS FLIPPED */}
                         {flippedCards.includes(arrayItem.id) ? (
-                            <div>some text</div>
+                            <div>
+                                <h5>Email: Example123@gmail.com</h5>
+                                <h5>SkypeID: live.nameexample_123</h5>
+                                <h5>Website: www.teacher-courses.com</h5>
+                                <button className={FilterStyles.teacher__buttons} onClick={() => handleFlipped(arrayItem.id)}>Back to teacher</button>
+                            </div>
                         ) : null}
                     </div>
                 );
