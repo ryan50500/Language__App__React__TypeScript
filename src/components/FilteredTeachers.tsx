@@ -196,44 +196,46 @@ const FilteredTeachers: React.FC = () => {
                 return (
                     // if 'flippedCards' array includes the card ID... add the 'flipped' class
                     <div key={arrayItem.id} className={`${FilterStyles.card} ${flippedCards.includes(arrayItem.id) ? FilterStyles.flipped : ''}`}>
-                        <div className={FilterStyles.teacher}>
-                            <h4 className={FilterStyles.teacher__name}>{arrayItem.name}<img style={{ paddingLeft: '10px', width: '34px' }} src={arrayItem.flag}></img></h4>
-                            <h4>Teaches: {arrayItem.language}
-                                {arrayItem.native ? (
-                                    <span style={{ backgroundColor: '#daf2dc', color: '#007913', fontSize: '15px', marginLeft: '5px', padding: '5px 9px', borderRadius: '10px' }}>Native</span>
-                                ) : null}
-                            </h4>
-                            <h4>Experience: {arrayItem.experience}</h4>
-                            <h5>Country of birth: {arrayItem.country}</h5>
-                            <h5>Time availabile: {arrayItem.time}</h5>
-                            <h5>Days availabile: {arrayItem.days}</h5>
-                            <h5 className={FilterStyles.price}>Price: £{arrayItem.price} per hour</h5>
-                        </div>
-                        <div className={FilterStyles.teacher__contact}>
-                            <div className={FilterStyles.teacher__flex}>
-                                <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <svg style={{ fill: '#fdc425', height: '20px', width: '20px' }} viewBox="0 0 24 23" xmlns="http://www.w3.org/2000/svg" className="styles_RatingStarIcon__i7Hk3"><path d="M23.97 8.721a.597.597 0 0 0-.507-.413l-7.744-.822-3.172-7.16c-.192-.435-.903-.435-1.095 0l-3.17 7.16-7.745.822a.601.601 0 0 0-.508.413.606.606 0 0 0 .17.635l5.785 5.248-1.616 7.667a.605.605 0 0 0 .586.729.595.595 0 0 0 .3-.081L12 19.003l6.747 3.916c.204.119.46.105.652-.035a.606.606 0 0 0 .234-.613l-1.616-7.668 5.786-5.248a.606.606 0 0 0 .168-.634z"></path></svg>
-                                    <span style={{ fontSize: '20px', fontWeight: '100', paddingLeft: '5px' }}>{arrayItem.rating}</span>
-                                </div>
-                                <div>
-                                    <span style={{ fontSize: '20px', fontWeight: '100' }}>£{arrayItem.price}</span>
-                                </div>
-                            </div>
-                            <div className={FilterStyles.teacher__flex__baseline}>
-                                <div><span style={{ fontSize: '15px', fontWeight: '100' }}>{arrayItem.reviews}</span><span style={{ fontSize: '13.5px', color: 'gray', paddingLeft: '5px' }}>reviews</span></div>
-                                <span style={{ fontSize: '13.5px', color: 'gray' }}>1-hour lesson</span>
-                            </div>
-                            <button className={FilterStyles.teacher__buttons} onClick={() => handleFlipped(arrayItem.id)}>View contact info</button>
-                        </div>
-                        {/* IF CARD IS FLIPPED */}
+                        {/* IF CARD IS FLIPPED show teacher contact info*/}
                         {flippedCards.includes(arrayItem.id) ? (
-                            <div>
-                                <h5>Email: Example123@gmail.com</h5>
-                                <h5>SkypeID: live.nameexample_123</h5>
-                                <h5>Website: www.teacher-courses.com</h5>
+                            <div className={FilterStyles.teacher__info}>
+                                <p>Email: Example123@gmail.com</p>
+                                <p>SkypeID: live.nameexample_123</p>
+                                <p>Website: www.teacher-courses.com</p>
                                 <button className={FilterStyles.teacher__buttons} onClick={() => handleFlipped(arrayItem.id)}>Back to teacher</button>
                             </div>
-                        ) : null}
+                        ) :
+                            <>
+                                <div className={FilterStyles.teacher}>
+                                    <h4 className={FilterStyles.teacher__name}>{arrayItem.name}<img style={{ paddingLeft: '10px', width: '34px' }} src={arrayItem.flag}></img></h4>
+                                    <h4>Teaches: {arrayItem.language}
+                                        {arrayItem.native ? (
+                                            <span style={{ backgroundColor: '#daf2dc', color: '#007913', fontSize: '15px', marginLeft: '5px', padding: '5px 9px', borderRadius: '10px' }}>Native</span>
+                                        ) : null}
+                                    </h4>
+                                    <h4>Experience: {arrayItem.experience}</h4>
+                                    <h5>Country of birth: {arrayItem.country}</h5>
+                                    <h5>Time availabile: {arrayItem.time}</h5>
+                                    <h5>Days availabile: {arrayItem.days}</h5>
+                                    <h5 className={FilterStyles.price}>Price: £{arrayItem.price} per hour</h5>
+                                </div>
+                                <div className={FilterStyles.teacher__contact}>
+                                    <div className={FilterStyles.teacher__flex}>
+                                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                                            <svg style={{ fill: '#fdc425', height: '20px', width: '20px' }} viewBox="0 0 24 23" xmlns="http://www.w3.org/2000/svg" className="styles_RatingStarIcon__i7Hk3"><path d="M23.97 8.721a.597.597 0 0 0-.507-.413l-7.744-.822-3.172-7.16c-.192-.435-.903-.435-1.095 0l-3.17 7.16-7.745.822a.601.601 0 0 0-.508.413.606.606 0 0 0 .17.635l5.785 5.248-1.616 7.667a.605.605 0 0 0 .586.729.595.595 0 0 0 .3-.081L12 19.003l6.747 3.916c.204.119.46.105.652-.035a.606.606 0 0 0 .234-.613l-1.616-7.668 5.786-5.248a.606.606 0 0 0 .168-.634z"></path></svg>
+                                            <span style={{ fontSize: '20px', fontWeight: '100', paddingLeft: '5px' }}>{arrayItem.rating}</span>
+                                        </div>
+                                        <div>
+                                            <span style={{ fontSize: '20px', fontWeight: '100' }}>£{arrayItem.price}</span>
+                                        </div>
+                                    </div>
+                                    <div className={FilterStyles.teacher__flex__baseline}>
+                                        <div><span style={{ fontSize: '15px', fontWeight: '100' }}>{arrayItem.reviews}</span><span style={{ fontSize: '13.5px', color: 'gray', paddingLeft: '5px' }}>reviews</span></div>
+                                        <span style={{ fontSize: '13.5px', color: 'gray' }}>1-hour lesson</span>
+                                    </div>
+                                    <button className={FilterStyles.teacher__buttons} onClick={() => handleFlipped(arrayItem.id)}>View contact info</button>
+                                </div>
+                            </>}
                     </div>
                 );
             })}
