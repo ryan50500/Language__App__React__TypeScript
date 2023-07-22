@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useReducer, useRef, useEffect } from 'react';
+import { initialState, reducer } from './reducer';
 import TeacherArray from '../TeacherArray';
 import SearchLanguage from './SearchLanguage';
 import NoResultsFound from './NoResultsFound';
@@ -23,7 +24,11 @@ const FilteredTeachers: React.FC = () => {
     // Flipped cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
     // number of teachers to show at a time (currently set to 5)
-    const [displayedTeachers, setDisplayedTeachers] = useState(5);
+    // const [displayedTeachers, setDisplayedTeachers] = useState(5);
+
+
+    // REDUCER 
+    const [state, dispatch] = useReducer(reducer, initialState);
 
 
 
@@ -54,10 +59,20 @@ const FilteredTeachers: React.FC = () => {
             (daysAvailabile === '' || teacher.days.includes(daysAvailabile + " "))
     );
 
+
+
+
     // show more teaches when button is clicked
+    // const handleViewMoreTeachers = () => {
+    //     setDisplayedTeachers((prevDisplayedTeachers) => prevDisplayedTeachers + 5);
+    // };
     const handleViewMoreTeachers = () => {
-        setDisplayedTeachers((prevDisplayedTeachers) => prevDisplayedTeachers + 5);
+        dispatch({ type: 'SET_DISPLAYED_TEACHERS', payload: state.displayedTeachers + 5 });
     };
+
+
+
+
 
 
     // filter teachers by price
@@ -199,7 +214,7 @@ const FilteredTeachers: React.FC = () => {
             <NoResultsFound filteredTeachers={filteredTeachers} />
 
 
-            {filteredTeachers.slice(0, displayedTeachers).map((arrayItem) => {
+            {filteredTeachers.slice(0, state.displayedTeachers).map((arrayItem) => {
                 return (
                     // if 'flippedCards' array includes the card ID... add the 'flipped' class
                     <div key={arrayItem.id} className={`${FilterStyles.card} ${flippedCards.includes(arrayItem.id) ? FilterStyles.flipped : ''}`}>
@@ -247,7 +262,7 @@ const FilteredTeachers: React.FC = () => {
                 );
             })}
             {/* only show 'View more teachers' button if there are more teachers in the filtered array that haven't been displayed yet. */}
-            {filteredTeachers.length > displayedTeachers && (
+            {filteredTeachers.length > state.displayedTeachers && (
                 <ViewMoreTeachers handleViewMoreTeachers={handleViewMoreTeachers} />
             )}
         </>
