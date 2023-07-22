@@ -13,9 +13,9 @@ import FilterStyles from './FilterStyles.module.css';
 
 const FilteredTeachers: React.FC = () => {
     const [inputText, setInputText] = useState<string | number>("");
-    const [maxPrice, setMaxPrice] = useState<number>(50);
-    const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
-    const [timeAvailabile, setTimeAvailabile] = useState<string>("");
+    // const [maxPrice, setMaxPrice] = useState<number>(50);
+    // const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
+    // const [timeAvailabile, setTimeAvailabile] = useState<string>("");
     const [daysAvailabile, setDaysAvailabile] = useState<string>('');
     const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
@@ -23,13 +23,11 @@ const FilteredTeachers: React.FC = () => {
     const [grayedOut, setGrayedOut] = useState(false);
     // Flipped cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
-    // number of teachers to show at a time (currently set to 5)
-    // const [displayedTeachers, setDisplayedTeachers] = useState(5);
+
 
 
     // REDUCER 
     const [state, dispatch] = useReducer(reducer, initialState);
-
 
 
     // hide the filters when user clicks outside of them
@@ -54,66 +52,58 @@ const FilteredTeachers: React.FC = () => {
     let filteredTeachers = TeacherArray.filter(
         (teacher) =>
             teacher.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
-            teacher.price < maxPrice && teacher.country.toLowerCase().indexOf(teacherBirthCountry.toString()) !== -1 &&
-            teacher.time.toLowerCase().indexOf(timeAvailabile.toString()) !== -1 &&
+            teacher.price < state.maxPrice && teacher.country.toLowerCase().indexOf(state.teacherBirthCountry.toString()) !== -1 &&
+            teacher.time.toLowerCase().indexOf(state.timeAvailable.toString()) !== -1 &&
             (daysAvailabile === '' || teacher.days.includes(daysAvailabile + " "))
     );
 
 
-
-
     // show more teaches when button is clicked
-    // const handleViewMoreTeachers = () => {
-    //     setDisplayedTeachers((prevDisplayedTeachers) => prevDisplayedTeachers + 5);
-    // };
     const handleViewMoreTeachers = () => {
         dispatch({ type: 'SET_DISPLAYED_TEACHERS', payload: state.displayedTeachers + 5 });
     };
-
-
-
-
-
-
     // filter teachers by price
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMaxPrice(parseInt(event.target.value));
-        // setMaxPrice(parseInt(event.target.value));
+        const newMaxPrice = parseInt(event.target.value);
+        dispatch({ type: 'SET_MAX_PRICE', payload: newMaxPrice });
     };
     // filter teachers by Birth Country
     const handleBirthCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTeacherBirthCountry(event.target.value);
-        // setMaxPrice(parseInt(event.target.value));
+        const newTeacherBirthCountry = event.target.value;
+        dispatch({ type: 'SET_TEACHER_BIRTH_COUNTRY', payload: newTeacherBirthCountry });
     };
     // filter teachers by morning availability
     const morningAvailability = () => {
-        setTimeAvailabile('morning');
+        dispatch({ type: 'SET_TIME_AVAILABLE', payload: 'morning' });
     };
     // filter teachers by afternoon availability
     const afternoonAvailability = () => {
-        setTimeAvailabile('afternoon');
+        dispatch({ type: 'SET_TIME_AVAILABLE', payload: 'afternoon' });
     };
     // filter teachers by evening availability
     const eveningAvailability = () => {
-        setTimeAvailabile('evening');
+        dispatch({ type: 'SET_TIME_AVAILABLE', payload: 'evening' });
     };
+
+
+
 
 
     // REMOVE FILTERS
     // remove Price filter
     const removePriceFilter = () => {
         setIsPriceRangeVisible(false);
-        setMaxPrice(50);
+        dispatch({ type: 'SET_MAX_PRICE', payload: 50 });
     };
     // remove Birth Country filter
     const removeBirthCountry = () => {
         setIsBirthCountryVisible(false);
-        setTeacherBirthCountry("")
+        dispatch({ type: 'SET_TEACHER_BIRTH_COUNTRY', payload: "" });
     };
     // remove Time Availability filter
     const removeTimeAvailability = () => {
         setIsAvailabilityVisible(false);
-        setTimeAvailabile("");
+        dispatch({ type: 'SET_TIME_AVAILABLE', payload: '' });
     };
     // remove Days Availability filter
     const removeDaysAvailability = () => {
@@ -173,20 +163,20 @@ const FilteredTeachers: React.FC = () => {
                         isPriceRangeVisible={isPriceRangeVisible}
                         openPriceFilter={openPriceFilter}
                         removePriceFilter={removePriceFilter}
-                        maxPrice={maxPrice}
+                        maxPrice={state.maxPrice}
                     />
                     {/* filter teachers by birth country */}
                     <FilteredTeachersByBirthCountry
                         isBirthCountryVisible={isBirthCountryVisible}
                         openBirthCountryFilter={openBirthCountryFilter}
-                        teacherBirthCountry={teacherBirthCountry}
+                        teacherBirthCountry={state.teacherBirthCountry}
                         removeBirthCountry={removeBirthCountry}
                     />
                     {/* filter teachers by availability */}
                     <FilteredTeachersByAvailability
                         isAvailabilityVisible={isAvailabilityVisible}
                         openAvailabilityFilter={openAvailabilityFilter}
-                        timeAvailabile={timeAvailabile}
+                        timeAvailable={state.timeAvailable}
                         removeTimeAvailability={removeTimeAvailability}
                         daysAvailabile={daysAvailabile}
                         removeDaysAvailability={removeDaysAvailability}
@@ -195,14 +185,14 @@ const FilteredTeachers: React.FC = () => {
                 {/* Open filters when clicked */}
                 <FiltersShowOnClick
                     eveningAvailability={eveningAvailability}
-                    teacherBirthCountry={teacherBirthCountry}
+                    teacherBirthCountry={state.teacherBirthCountry}
                     handleBirthCountry={handleBirthCountry}
                     isPriceRangeVisible={isPriceRangeVisible}
-                    maxPrice={maxPrice}
+                    maxPrice={state.maxPrice}
                     handlePriceChange={handlePriceChange}
                     isBirthCountryVisible={isBirthCountryVisible}
                     isAvailabilityVisible={isAvailabilityVisible}
-                    timeAvailabile={timeAvailabile}
+                    timeAvailable={state.timeAvailable}
                     daysAvailabile={daysAvailabile}
                     setDaysAvailabile={setDaysAvailabile}
                     morningAvailability={morningAvailability}

@@ -1,4 +1,3 @@
-// Define the TypeScript types for the state
 interface State {
     inputText: string | number;
     maxPrice: number;
@@ -13,7 +12,6 @@ interface State {
     displayedTeachers: number;
 }
 
-// Define the TypeScript type for the action
 type Action =
     | { type: 'SET_INPUT_TEXT'; payload: string | number }
     | { type: 'SET_MAX_PRICE'; payload: number }
@@ -27,7 +25,7 @@ type Action =
     | { type: 'SET_FLIPPED_CARDS'; payload: number[] }
     | { type: 'SET_DISPLAYED_TEACHERS'; payload: number };
 
-// The initial state with TypeScript type
+
 const initialState: State = {
     inputText: '',
     maxPrice: 50,
@@ -42,7 +40,7 @@ const initialState: State = {
     displayedTeachers: 5,
 };
 
-// The reducer function with TypeScript type
+
 const reducer = (state: State, action: Action): State => {
     switch (action.type) {
         case 'SET_INPUT_TEXT':
