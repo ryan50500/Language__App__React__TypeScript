@@ -6,11 +6,11 @@ interface IFiltersShowOnClick {
     maxPrice: number;
     handlePriceChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleBirthCountry: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    setDaysAvailabile: (daysAvailabile: string) => void;
+    handleSetDaysAvailable: (daysAvailable: string) => void;
+    daysAvailable: string;
     isBirthCountryVisible: boolean;
     isAvailabilityVisible: boolean;
     timeAvailable: string;
-    daysAvailabile: string;
     teacherBirthCountry: string;
     morningAvailability: () => void;
     afternoonAvailability: () => void;
@@ -23,15 +23,17 @@ const FiltersShowOnClick: React.FC<IFiltersShowOnClick> = ({
     maxPrice,
     handlePriceChange,
     handleBirthCountry,
-    setDaysAvailabile,
+    handleSetDaysAvailable,
+    daysAvailable,
     isBirthCountryVisible,
     isAvailabilityVisible,
     timeAvailable,
-    daysAvailabile,
     morningAvailability,
     afternoonAvailability,
     eveningAvailability
 }) => {
+
+
     return (
         <div>
             <div className={`${FilterStyles.filter__options} ${FilterStyles.hover}`}>
@@ -68,13 +70,13 @@ const FiltersShowOnClick: React.FC<IFiltersShowOnClick> = ({
                         </div>
                         <h3 style={{ margin: '15px 0' }}>Days of the week</h3>
                         <div className={FilterStyles.availability__flex}>
-                            <div style={{ color: daysAvailabile === 'Mon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Mon")}>Mon</div>
-                            <div style={{ color: daysAvailabile === 'Tue' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Tue")}>Tues</div>
-                            <div style={{ color: daysAvailabile === 'Wed' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Wed")}>Wed</div>
-                            <div style={{ color: daysAvailabile === 'Thu' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Thu")}>Thu</div>
-                            <div style={{ color: daysAvailabile === 'Fri' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Fri")}>Fri</div>
-                            <div style={{ color: daysAvailabile === 'Sat' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sat")}>Sat</div>
-                            <div style={{ color: daysAvailabile === 'Sun' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => setDaysAvailabile("Sun")}>Sun</div>
+                            <div style={{ color: daysAvailable === 'Mon' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Mon')}>Mon</div>
+                            <div style={{ color: daysAvailable === 'Tue' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Tue')}>Tue</div>
+                            <div style={{ color: daysAvailable === 'Wed' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Wed')}>Wed</div>
+                            <div style={{ color: daysAvailable === 'Thu' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Thu')}>Thu</div>
+                            <div style={{ color: daysAvailable === 'Fri' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Fri')}>Fri</div>
+                            <div style={{ color: daysAvailable === 'Sat' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Sat')}>Sat</div>
+                            <div style={{ color: daysAvailable === 'Sun' ? '#3bb3bd' : "" }} className={FilterStyles.availability__day} onClick={() => handleSetDaysAvailable('Sun')}>Sun</div>
                         </div>
                     </div>
                 </div>

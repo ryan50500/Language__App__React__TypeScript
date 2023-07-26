@@ -16,7 +16,7 @@ const FilteredTeachers: React.FC = () => {
     // const [maxPrice, setMaxPrice] = useState<number>(50);
     // const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
     // const [timeAvailabile, setTimeAvailabile] = useState<string>("");
-    const [daysAvailabile, setDaysAvailabile] = useState<string>('');
+    // const [daysAvailabile, setDaysAvailabile] = useState<string>('');
     // const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
@@ -49,13 +49,19 @@ const FilteredTeachers: React.FC = () => {
 
 
     // Show filtered teachers 
-    let filteredTeachers = TeacherArray.filter(
-        (teacher) =>
+    let filteredTeachers = TeacherArray.filter((teacher) => {
+
+        // console.log('teacher.days:', teacher.days); // Add this line to check the value of teacher.days
+        console.log('daysAvailable:', state.daysAvailable); // Add this line to check the value of daysAvailable
+        console.log('daysIncludes:', teacher.days.includes(state.daysAvailable)); // Add this line to check the result of daysIncludes
+        return (
             teacher.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
-            teacher.price < state.maxPrice && teacher.country.toLowerCase().indexOf(state.teacherBirthCountry.toString()) !== -1 &&
+            teacher.price < state.maxPrice &&
+            teacher.country.toLowerCase().indexOf(state.teacherBirthCountry.toString()) !== -1 &&
             teacher.time.toLowerCase().indexOf(state.timeAvailable.toString()) !== -1 &&
-            (daysAvailabile === '' || teacher.days.includes(daysAvailabile + " "))
-    );
+            (state.daysAvailable === '' || teacher.days.includes(state.daysAvailable))
+        );
+    });
 
 
     // show more teaches when button is clicked
@@ -84,7 +90,10 @@ const FilteredTeachers: React.FC = () => {
     const eveningAvailability = () => {
         dispatch({ type: 'SET_TIME_AVAILABLE', payload: 'evening' });
     };
-
+    // filter teachers by days availabile
+    const handleSetDaysAvailable = (selectedDay: string) => {
+        dispatch({ type: 'SET_DAYS_AVAILABLE', payload: selectedDay });
+    };
 
 
 
@@ -104,7 +113,7 @@ const FilteredTeachers: React.FC = () => {
     };
     // remove Days Availability filter
     const removeDaysAvailability = () => {
-        setDaysAvailabile("")
+        // setDaysAvailabile("")
     };
 
 
@@ -178,7 +187,7 @@ const FilteredTeachers: React.FC = () => {
                         openAvailabilityFilter={openAvailabilityFilter}
                         timeAvailable={state.timeAvailable}
                         removeTimeAvailability={removeTimeAvailability}
-                        daysAvailabile={daysAvailabile}
+                        daysAvailable={state.daysAvailable}
                         removeDaysAvailability={removeDaysAvailability}
                     />
                 </div>
@@ -193,8 +202,8 @@ const FilteredTeachers: React.FC = () => {
                     isBirthCountryVisible={isBirthCountryVisible}
                     isAvailabilityVisible={isAvailabilityVisible}
                     timeAvailable={state.timeAvailable}
-                    daysAvailabile={daysAvailabile}
-                    setDaysAvailabile={setDaysAvailabile}
+                    daysAvailable={state.daysAvailable}
+                    handleSetDaysAvailable={handleSetDaysAvailable}
                     morningAvailability={morningAvailability}
                     afternoonAvailability={afternoonAvailability}
                 />

@@ -10,7 +10,7 @@ const TeacherArray = [
         country: 'Poland',
         price: 17,
         time: 'morning evening',
-        days: ['Mon ', 'Tue ', 'Wed ', 'Thu ', 'Fri ', 'Sat ', 'Sun '],
+        days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
         reviews: '50',
         rating: 5,
         id: 0,
@@ -24,7 +24,7 @@ const TeacherArray = [
         country: 'France',
         price: 15,
         time: 'morning afternoon evening',
-        days: ['Mon ', 'Thu ', 'Fri ', 'Sat '],
+        days: ['Mon', 'Thu', 'Fri', 'Sat'],
         reviews: '32',
         rating: 4.6,
         id: 1
@@ -38,7 +38,7 @@ const TeacherArray = [
         country: 'Argentina',
         price: 14,
         time: 'morning',
-        days: ['Sat ', 'Sun '],
+        days: ['Sat', 'Sun'],
         reviews: '5',
         rating: 5,
         id: 2
@@ -52,7 +52,7 @@ const TeacherArray = [
         country: 'Spain',
         price: 45,
         time: 'evening',
-        days: ['Mon ', 'Tue ', 'Wed ', 'Thu ', 'Fri ', 'Sat ', 'Sun '],
+        days: ['Mon', 'Tue', 'Wed', 'Thu ', 'Fri', 'Sat ', 'Sun '],
         reviews: '78',
         rating: 5,
         id: 3
