@@ -92,19 +92,14 @@ const FilteredTeachers: React.FC = () => {
     // REMOVE FILTERS
     // remove Price filter
     const removePriceFilter = () => {
-        // dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
         dispatch({ type: 'SET_MAX_PRICE', payload: 50 });
-        dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
-
     };
     // remove Birth Country filter
     const removeBirthCountry = () => {
-        setIsBirthCountryVisible(false);
         dispatch({ type: 'SET_TEACHER_BIRTH_COUNTRY', payload: "" });
     };
     // remove Time Availability filter
     const removeTimeAvailability = () => {
-        setIsAvailabilityVisible(false);
         dispatch({ type: 'SET_TIME_AVAILABLE', payload: '' });
     };
     // remove Days Availability filter
