@@ -4,13 +4,12 @@ import TeacherArray from '../TeacherArray';
 
 
 interface ISearchLanguage {
-    inputText: string | number,
-    setInputText: React.Dispatch<React.SetStateAction<string | number>>
-    filteredTeachers: any[]
+    inputText: string,
+    setInputText: React.Dispatch<React.SetStateAction<string>>
 }
 
 
-const SearchLanguage = ({ inputText, setInputText, filteredTeachers }: ISearchLanguage) => {
+const SearchLanguage = ({ inputText, setInputText }: ISearchLanguage) => {
     return (
         <>
             <div style={{ textAlign: "center" }} >

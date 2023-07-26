@@ -12,18 +12,11 @@ import FilterStyles from './FilterStyles.module.css';
 
 
 const FilteredTeachers: React.FC = () => {
-    const [inputText, setInputText] = useState<string | number>("");
-    // const [maxPrice, setMaxPrice] = useState<number>(50);
-    // const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
-    // const [timeAvailabile, setTimeAvailabile] = useState<string>("");
-    // const [daysAvailabile, setDaysAvailabile] = useState<string>('');
-    // const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
-    // const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
-    // const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
-    // const [grayedOut, setGrayedOut] = useState(false);
+
+    // const [inputText, setInputText] = useState<string | number>("");
+
     // Flipped cards
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
-
 
     // REDUCER 
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -50,7 +43,7 @@ const FilteredTeachers: React.FC = () => {
     // Show filtered teachers 
     let filteredTeachers = TeacherArray.filter((teacher) => {
         return (
-            teacher.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
+            teacher.language.toLowerCase().indexOf(state.inputText.toString().toLowerCase()) !== -1 &&
             teacher.price < state.maxPrice &&
             teacher.country.toLowerCase().indexOf(state.teacherBirthCountry.toString()) !== -1 &&
             teacher.time.toLowerCase().indexOf(state.timeAvailable.toString()) !== -1 &&
@@ -88,6 +81,10 @@ const FilteredTeachers: React.FC = () => {
     // filter teachers by days availabile
     const handleSetDaysAvailable = (selectedDay: string) => {
         dispatch({ type: 'SET_DAYS_AVAILABLE', payload: selectedDay });
+    };
+    // filter by serach term
+    const setInputText = (searchTerm: any) => {
+        dispatch({ type: 'SET_INPUT_TEXT', payload: searchTerm });
     };
 
 
@@ -158,7 +155,7 @@ const FilteredTeachers: React.FC = () => {
     return (
         <>
             {/* filter by search input */}
-            <SearchLanguage inputText={inputText} setInputText={setInputText} filteredTeachers={filteredTeachers} />
+            <SearchLanguage inputText={state.inputText} setInputText={setInputText} />
             <section id="filter__section" ref={filterRef}>
                 <div className={`${FilterStyles.filter__options} ${state.grayedOut ? FilterStyles.filter__options__grayed : ''}`}>
                     {/* filter teachers by price */}

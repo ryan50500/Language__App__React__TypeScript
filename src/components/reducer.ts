@@ -1,5 +1,5 @@
 interface State {
-    inputText: string | number;
+    inputText: string;
     maxPrice: number;
     teacherBirthCountry: string;
     timeAvailable: string;
@@ -13,7 +13,7 @@ interface State {
 }
 
 type Action =
-    | { type: 'SET_INPUT_TEXT'; payload: string | number }
+    | { type: 'SET_INPUT_TEXT'; payload: string }
     | { type: 'SET_MAX_PRICE'; payload: number }
     | { type: 'SET_TEACHER_BIRTH_COUNTRY'; payload: string }
     | { type: 'SET_TIME_AVAILABLE'; payload: string }
