@@ -17,7 +17,7 @@ const FilteredTeachers: React.FC = () => {
     // const [teacherBirthCountry, setTeacherBirthCountry] = useState<string>("");
     // const [timeAvailabile, setTimeAvailabile] = useState<string>("");
     const [daysAvailabile, setDaysAvailabile] = useState<string>('');
-    const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
+    // const [isPriceRangeVisible, setIsPriceRangeVisible] = useState(false);
     const [isBirthCountryVisible, setIsBirthCountryVisible] = useState(false);
     const [isAvailabilityVisible, setIsAvailabilityVisible] = useState(false);
     const [grayedOut, setGrayedOut] = useState(false);
@@ -38,7 +38,7 @@ const FilteredTeachers: React.FC = () => {
                 setGrayedOut(false);
                 setIsBirthCountryVisible(false);
                 setIsAvailabilityVisible(false);
-                setIsPriceRangeVisible(false);
+                dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
             }
         }
         document.addEventListener('mousedown', handleClickOutside);
@@ -92,8 +92,10 @@ const FilteredTeachers: React.FC = () => {
     // REMOVE FILTERS
     // remove Price filter
     const removePriceFilter = () => {
-        setIsPriceRangeVisible(false);
+        // dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
         dispatch({ type: 'SET_MAX_PRICE', payload: 50 });
+        dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
+
     };
     // remove Birth Country filter
     const removeBirthCountry = () => {
@@ -111,11 +113,14 @@ const FilteredTeachers: React.FC = () => {
     };
 
 
+
+
+
     // OPEN FILTERS WHEN CLICKED
     // Open price filter 
     const openPriceFilter = () => {
         setGrayedOut(true);
-        setIsPriceRangeVisible(!isPriceRangeVisible);
+        dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: true });
         setIsBirthCountryVisible(false);
         setIsAvailabilityVisible(false);
     };
@@ -124,14 +129,14 @@ const FilteredTeachers: React.FC = () => {
         setGrayedOut(true);
         setIsBirthCountryVisible(!isBirthCountryVisible);
         setIsAvailabilityVisible(false);
-        setIsPriceRangeVisible(false);
+        dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
     };
     // Open availability filter 
     const openAvailabilityFilter = () => {
         setGrayedOut(true);
         setIsAvailabilityVisible(!isAvailabilityVisible);
         setIsBirthCountryVisible(false);
-        setIsPriceRangeVisible(false);
+        dispatch({ type: 'SET_IS_PRICE_RANGE_VISIBLE', payload: false });
     };
 
 
@@ -160,7 +165,7 @@ const FilteredTeachers: React.FC = () => {
                 <div className={`${FilterStyles.filter__options} ${grayedOut ? FilterStyles.filter__options__grayed : ''}`}>
                     {/* filter teachers by price */}
                     <FilteredTeachersByPrice
-                        isPriceRangeVisible={isPriceRangeVisible}
+                        isPriceRangeVisible={state.isPriceRangeVisible}
                         openPriceFilter={openPriceFilter}
                         removePriceFilter={removePriceFilter}
                         maxPrice={state.maxPrice}
@@ -187,7 +192,7 @@ const FilteredTeachers: React.FC = () => {
                     eveningAvailability={eveningAvailability}
                     teacherBirthCountry={state.teacherBirthCountry}
                     handleBirthCountry={handleBirthCountry}
-                    isPriceRangeVisible={isPriceRangeVisible}
+                    isPriceRangeVisible={state.isPriceRangeVisible}
                     maxPrice={state.maxPrice}
                     handlePriceChange={handlePriceChange}
                     isBirthCountryVisible={isBirthCountryVisible}
