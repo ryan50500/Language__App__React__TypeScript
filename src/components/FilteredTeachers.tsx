@@ -25,7 +25,6 @@ const FilteredTeachers: React.FC = () => {
     const [flippedCards, setFlippedCards] = useState<number[]>([]);
 
 
-
     // REDUCER 
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -50,10 +49,6 @@ const FilteredTeachers: React.FC = () => {
 
     // Show filtered teachers 
     let filteredTeachers = TeacherArray.filter((teacher) => {
-
-        // console.log('teacher.days:', teacher.days); // Add this line to check the value of teacher.days
-        console.log('daysAvailable:', state.daysAvailable); // Add this line to check the value of daysAvailable
-        console.log('daysIncludes:', teacher.days.includes(state.daysAvailable)); // Add this line to check the result of daysIncludes
         return (
             teacher.language.toLowerCase().indexOf(inputText.toString().toLowerCase()) !== -1 &&
             teacher.price < state.maxPrice &&
@@ -97,7 +92,6 @@ const FilteredTeachers: React.FC = () => {
 
 
 
-
     // REMOVE FILTERS
     // remove Price filter
     const removePriceFilter = () => {
@@ -113,7 +107,8 @@ const FilteredTeachers: React.FC = () => {
     };
     // remove Days Availability filter
     const removeDaysAvailability = () => {
-        // setDaysAvailabile("")
+        console.log('dads')
+        dispatch({ type: 'SET_DAYS_AVAILABLE', payload: '' });
     };
 
 

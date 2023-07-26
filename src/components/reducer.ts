@@ -42,6 +42,7 @@ const initialState: State = {
 
 
 const reducer = (state: State, action: Action): State => {
+    console.log(state)
     switch (action.type) {
         case 'SET_INPUT_TEXT':
             return { ...state, inputText: action.payload };
